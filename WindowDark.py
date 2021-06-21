@@ -10,7 +10,7 @@
 Class for creating windows that use a custom title bar and darktheme
 """
 
-from ProgramColours import DarkTheme
+from UI_Styles import DarkTheme
 
 colour=DarkTheme()
 
@@ -31,6 +31,7 @@ class WindowDark():
         #Create a title bar
         window_bar = tk.Frame(self.window,bg=colour.bg_1,width=500,height=20)
         window_bar.place(x=0,y=0)
+        window_bar.lift()
 
         #Add an exit button
         exit_frame = tk.Frame(window_bar,bg=colour.bg_1,width=20,height=20)
@@ -50,10 +51,6 @@ class WindowDark():
         self.root.rowconfigure(0,weight=1)
         self.root.grid_propagate(False)
         self.root.place(x=0,y=20)
-
-
-        #Update the window
-        self.window.update()
 
     #Fuction to update the window when the mouse is moved
     def move_window(self,event):
