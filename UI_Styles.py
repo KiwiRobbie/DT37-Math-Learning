@@ -1,3 +1,7 @@
+import tkinter as tk
+from tkinter import ttk
+style = ttk.Style()
+
 class DarkTheme():
     def __init__(self):
         #Colours for background elements
