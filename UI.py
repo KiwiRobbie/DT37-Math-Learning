@@ -3,10 +3,6 @@ import tkinter as tk
 from UI_Styles import DarkTheme
 colour=DarkTheme()
 
-#self.image=ImageTk.PhotoImage(Image.open('Testing/Neo-Wide.gif').convert("RGBA"))
-#self.root=tk.Button(root,image=self.image,relief='flat',bd=0,bg=colour.bg_3)
-#self.root.bind('<Button-1>', lambda e: 'break')
-
 
 class Card(tk.Frame):
     def __init__(self,root,card_config) -> None:
