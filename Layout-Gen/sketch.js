@@ -1,40 +1,33 @@
 var bg;
 var fg_1, fg_2;
-var fontRegular, fontItalic, fontBold;
 
 function setup() 
 {
-	colorMode(HSB, 360, 100, 100);
+	bg = color('#212329');
+	fg = color('#ff7b2e');
+
+	fg_1 = fg//color(40,100,100);
+	fg_2 = fg//color(10,100,100);
 
 
-	bg = color(220,5,15);
-	fg = color('#da8972');
+	createCanvas(360, 200);
 
-	fg_1 = color(40,100,100);
-	fg_2 = color(10,100,100);
-
-
-	createCanvas(370, 490);
-	translate(5,5)
 	background(0);
 	noFill();
-	strokeWeight(2);
+	strokeWeight(4);
 	stroke(255);
 
-	rect(0,0,360,480,10)
+	line(0,0,360,0)
 
-	line(0,420,360,420)
-	line(120,420,120,480)
-	line(240,420,240,480)
+	line(0,0,0,200)
+	line(360,0,360,200)
 
-	line(0,30,360,30)
 
 	blendMode(MULTIPLY);
-	setGradient(-5,-5,370,490,fg_1,fg_2,2)
+	background(fg_1)
 	blendMode(LIGHTEST);
-	mainfont = loadFont("assets/OpenSans-Regular.ttf");
-	text("Font Style Normal", 10, 30);
 	background(bg)
+	saveCanvas('download', 'png');
 
 }
 

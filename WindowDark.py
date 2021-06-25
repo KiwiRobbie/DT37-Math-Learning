@@ -41,7 +41,7 @@ class WindowDark(tk.Tk):
         exit_frame.columnconfigure(0,weight=1)
         exit_frame.rowconfigure(0,weight=1)
         exit_frame.grid_propagate(False)
-        tk.Button(exit_frame,text='X',bg=colour.bg_1,bd=0,fg=colour.txt_1,font='arial 8 bold',command=quit).grid(sticky='nesw')
+        tk.Button(exit_frame,text='X',bg=colour.bg_1,bd=0,fg=colour.txt_1,font='arial 8 bold',command=self.quit).grid(sticky='nesw')
 
         #Bind events for dragging the window arround
         window_bar.bind('<B1-Motion>', self.move_window)
