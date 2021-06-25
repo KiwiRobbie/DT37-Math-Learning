@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinterhtml import HtmlFrame
+import urllib.request
 
 from UI_Styles import DarkTheme
 colour=DarkTheme()
@@ -6,17 +8,26 @@ colour=DarkTheme()
 
 class Card(tk.Frame):
     def __init__(self,root,card_config) -> None:
-        super().__init__(root,bg='red')
-    
+        super().__init__(root,bg='white',width=360,height=300)
 
 
-        self.cap=tk.PhotoImage('cap',file='Testing/Neo-Cap.gif')
-        button=tk.Label(self,image=self.cap,text='Complex Numbers', compound='center',fg='#ff7b2e',font='Corbel 12',bd=0,bg=colour.bg_3,pady=-1,padx=-1)
-        button.grid(row=0,column=0)
+        # self.cap=tk.PhotoImage('cap',file='Testing/Neo-Cap.gif')
+        # button=tk.Label(self,image=self.cap,text='Complex Numbers', compound='center',fg='#ff7b2e',font='Corbel 12',bd=0,bg=colour.bg_3,pady=-1,padx=-1)
+        # button.grid(row=0,column=0)
 
-        self.image=tk.PhotoImage('singleButton',file='Testing/Neo-Wide.gif')
-        button=tk.Label(self,image=self.image,bd=0,bg=colour.bg_3)
-        button.grid(row=1,column=0)
+
+        # self.q_image=tk.PhotoImage('question',file='assets/download.png')
+        # image=tk.Label(self,image=self.q_image,bd=0,bg=colour.bg_3)
+        # image.grid(row=1,column=0)
+
+
+
+        # self.buttons=tk.PhotoImage('singleButton',file='Testing/Neo-Wide.gif')
+        # button=tk.Label(self,image=self.buttons,bd=0,bg=colour.bg_3)
+        # button.grid(row=2,column=0)
+
+
+
 
     def single_button(self):
         pass

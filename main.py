@@ -13,6 +13,8 @@ delta_t=0
 for i in range(10):
     main_queue.append_card(tk.Label(text='Test'))
 
+print('Test')
+
 while True:
     main_queue.update(delta_t)
 
