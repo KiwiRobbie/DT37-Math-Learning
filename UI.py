@@ -21,7 +21,7 @@ class Card(tk.Frame):
         self.title_frame.columnconfigure(0, weight=1)
         self.title_frame.rowconfigure(0, weight=1)
         self.title_frame.grid_propagate(False)
-
+ 
         self.title = tk.Label(self.title_frame, text='Complex Numbers', fg=colour.txt_2, font='Corbel 12 bold', bd=0,
                               bg=colour.bg_2)
         self.title.grid(row=0, column=0, sticky='NSEW')
