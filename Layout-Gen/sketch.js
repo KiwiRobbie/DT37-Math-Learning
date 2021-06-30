@@ -6,8 +6,9 @@ function setup()
 	bg = color('#212329');
 	fg = color('#ff7b2e');
 
-	fg_1 = fg;
-	fg_2 = fg;
+	fg_1 = fg//color(40,100,100);
+	fg_2 = fg//color(10,100,100);
+
 
 	createCanvas(360, 200);
 
@@ -16,21 +17,17 @@ function setup()
 	strokeWeight(4);
 	stroke(255);
 
-	line(0,0,360,0);
+	line(0,0,360,0)
 
-	line(0,0,0,200);
-	line(360,0,360,200);
-
-	text("Whats is u+v if: \nu=2+i\nv=5+4i",0,0)
+	line(0,0,0,200)
+	line(360,0,360,200)
 
 
 	blendMode(MULTIPLY);
-	background(fg_1);
+	background(fg_1)
 	blendMode(LIGHTEST);
-	background(bg);
+	background(bg)
 	saveCanvas('download', 'png');
-
-
 
 }
 
