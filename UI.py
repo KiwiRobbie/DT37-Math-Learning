@@ -1,7 +1,10 @@
 import tkinter as tk
 from UI_Styles import DarkTheme
+import json
+import random
 
 colour = DarkTheme()
+
 
 class Card(tk.Frame):
     def __init__(self, root) -> None:
@@ -14,16 +17,17 @@ class Card(tk.Frame):
         self.responses = []
         self.correct_response = []
         self.content = 0
+        self.buttons = []
 
     # Add a banner holding the title to the top of the card
     def add_title(self,title):
-        self.title_frame = tk.Frame(self, width=360, height=24, bg=colour.bg_3)
-        self.title_frame.grid(row=0, column=0, sticky='NSEW', pady=2)
-        self.title_frame.columnconfigure(0, weight=1)
-        self.title_frame.rowconfigure(0, weight=1)
-        self.title_frame.grid_propagate(False)
+        self.body.append(tk.Frame(self, width=360, height=24, bg=colour.bg_3))
+        self.body[-1].grid(row=0, column=0, sticky='NSEW', pady=2)
+        self.body[-1].columnconfigure(0, weight=1)
+        self.body[-1].rowconfigure(0, weight=1)
+        self.body[-1].grid_propagate(False)
 
-        self.title = tk.Label(self.title_frame, text=title, fg=colour.txt_2, font='Corbel 12 bold', bd=0,
+        self.title = tk.Label(self.body[-1], text=title, fg=colour.txt_2, font='Corbel 12 bold', bd=0,
                               bg=colour.bg_2)
         self.title.grid(column=0, sticky='NSEW')
 
@@ -37,12 +41,17 @@ class Card(tk.Frame):
         self.body.append(tk.Label(self.content,text=text,bg=colour.bg_2,fg=colour.txt_1, font=font))
         self.body[-1].grid(column=0, sticky='NSEW',pady=4)
 
+    # Add a section of math to the card
+    def add_math(self,text,font='Corbel 11'):
+        self.body.append(tk.Label(self.content,text=text,bg=colour.bg_2,fg=colour.txt_1, font=font))
+        self.body[-1].grid(column=0, sticky='NSEW',pady=4)
+
     # Add a single button to accept the card
     def add_single_button(self):
         self.input = tk.Button(self, text='Ok', font='Corbel 12', relief='flat', bg=colour.bg_2, fg=colour.txt_1)
         self.input.grid(column=0, sticky='NSEW', pady=2)
 
-    # Add a multichoice input
+    # Add a multi-choice input
     def add_tri_button(self, answers, correct):
         self.responses = answers
         self.correct_response = correct
@@ -60,11 +69,34 @@ class Card(tk.Frame):
                           fg=colour.txt_1, command=self.correct if self.correct_response == i else self.incorrect))
             self.buttons[-1].grid(row=0, column=i, sticky='NESW', padx=(2 * (i != 0), 2 * (i != 2)))
 
+    def load_file(self, file):
+        with open(file, 'r') as f:
+            data = json.loads(f.read())
+            self.add_title(data["Title"])
+            self.add_content()
+
+            question = random.choice(list(data["Questions"].values()))
+            for txt in question["Question"]:
+                if "<txt>" in txt:
+                    self.add_text(txt[5:])
+                elif "<math>" in txt:
+                    self.add_math(txt[6:])
+
+            if type(question["Answer"]) == list and len(question["Answer"]) == 3:
+                correct=random.randint(0,2)
+                ans=question["Answer"]
+
+                get = ans[0], ans[correct]
+                ans[correct], ans[0] = get
+
+                self.add_tri_button(ans, correct)
+
     def correct(self):
         print('Correct')
 
     def incorrect(self):
         print('Try Again')
+
 
 class Queue:
     def __init__(self, root) -> None:
