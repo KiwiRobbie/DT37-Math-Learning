@@ -1,0 +1,16 @@
+{
+  "Course" : "Complex Numbers",
+  "Sections" : [
+    {
+      "File" : "Basic-Arithmetic.json",
+      "Title" : "Basic Arithmetic",
+      "Description" : "Learn how to add subtract and multiply complex numbers"
+    },
+    {
+      "File" : "IDK-IDC.json",
+      "Title" : "IDK",
+      "Description" : "IDC"
+    }
+
+  ]
+}

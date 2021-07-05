@@ -4,15 +4,15 @@
 
   "Questions" : {
     "Addition": {
-      "Question": ["<math>[a]=$randc{5}$","<math>[b]=$randc{5}$","<txt>What is the value of: ","<math>[a]+[b]"],
+      "Question": ["<def>[a]=$randc{5}$","<def>[b]=$randc{5}$","<txt>What is the value of: ","<math>[a]+[b]"],
       "Answer": ["<calc>[a]+[b]","<math>$randc{10}$,","<math>$randc{10}$"]
     },
     "Subtraction": {
-      "Question": ["<math>[a]=$randc${5}$","<math>[b]=$randc{5}$","<txt>What is the value of: ","<math>[a]-[b]"],
+      "Question": ["<def>[a]=$randc${5}$","<def>[b]=$randc{5}$","<txt>What is the value of: ","<math>[a]-[b]"],
       "Answer": ["<calc>[a]-[b]","<calc>$randc{5}-randc{5}$,","<calc>$randc{5}-randc{5}$,"]
     },
     "Multiplication": {
-      "Question": ["<math>[a]=$randc{4}$","<math>[b]=$randc{4}$","<txt>What is the value of: ","<math>[a] cdot [b]"],
+      "Question": ["<def>[a]=$randc{4}$","<def>[b]=$randc{4}$","<txt>What is the value of: ","<math>[a] cdot [b]"],
       "Answer": ["<calc>[a]*[b]","<calc>$randc{5}*randc{5}$,","<calc>$randc{5}*randc{5}$,"]
     }
   }

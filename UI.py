@@ -6,6 +6,7 @@ import random
 colour = DarkTheme()
 
 
+
 class Card(tk.Frame):
     def __init__(self, root) -> None:
         super().__init__(root, bg=colour.bg_3)
@@ -75,6 +76,9 @@ class Card(tk.Frame):
             self.add_title(data["Title"])
             self.add_content()
 
+            letters = ['u', 'v', 'w', 'p', 'q', 'z']
+            symbols = {}
+
             question = random.choice(list(data["Questions"].values()))
             for txt in question["Question"]:
                 if "<txt>" in txt:
@@ -82,9 +86,17 @@ class Card(tk.Frame):
                 elif "<math>" in txt:
                     self.add_math(txt[6:])
 
+                elif "<def>" in txt:
+                    symbol = txt.split('=')[0].split('[')[1].split(']')[0]
+                    equation=txt.split('=')[1]
+
+                    symbols[symbol] = (letters.pop(random.randrange(0, len(letters))),0)
+                    self.add_math("%s = %s"%symbols[symbol] )
+                    print(symbol)
+
             if type(question["Answer"]) == list and len(question["Answer"]) == 3:
-                correct=random.randint(0,2)
-                ans=question["Answer"]
+                correct = random.randint(0,2)
+                ans = question["Answer"]
 
                 get = ans[0], ans[correct]
                 ans[correct], ans[0] = get
@@ -110,10 +122,18 @@ class Queue:
         self.root.place(x=60, y=self.position)
 
         self.root.bind_all('<MouseWheel>', self.scroll_handler)
+        self.root.bind_all('<Button-5>', self.scroll_handler)
+        self.root.bind_all('<Button-4>', self.scroll_handler)
+
         self.root.lower()
         root.lower()
 
     def scroll_handler(self, event):
+        if event.num == 5:
+            self.target -= 45
+        elif event.num == 4:
+            self.target += 45
+
         self.target += event.delta / 2
 
     def update(self, delta_t):
