@@ -2,11 +2,23 @@ import tkinter as tk
 from UI_Styles import DarkTheme
 import json
 import random
+import re
 
 colour = DarkTheme()
 
 
+def solve_equation(equation, symbols={}):
+    equation = equation.split("$")
+    for i, eq in enumerate(equation):
+        if "randc" in eq:
+            r = int(eq.split("{")[1].split("}")[0])
+            equation[i] = ("_%d+_%di" % (random.randint(-r, r), random.randint(-r, r))) \
+                .replace("+-", "-").replace("1i", "i").replace("_-","-").replace("_", " ")
+            equation[i] = re.sub(".0i|0.", "", equation[i])
+            equation[i] = equation[i] if equation[i] != " " else " 0"
+    return ''.join(equation)
 
+    
 class Card(tk.Frame):
     def __init__(self, root) -> None:
         super().__init__(root, bg=colour.bg_3)
@@ -21,7 +33,7 @@ class Card(tk.Frame):
         self.buttons = []
 
     # Add a banner holding the title to the top of the card
-    def add_title(self,title):
+    def add_title(self, title):
         self.body.append(tk.Frame(self, width=360, height=24, bg=colour.bg_3))
         self.body[-1].grid(row=0, column=0, sticky='NSEW', pady=2)
         self.body[-1].columnconfigure(0, weight=1)
@@ -35,17 +47,17 @@ class Card(tk.Frame):
     def add_content(self):
         self.content = tk.Frame(self, width=320, bg=colour.bg_2)
         self.content.grid(column=0, sticky='NSEW', pady=2)
-        self.content.columnconfigure(0,weight=1)
+        self.content.columnconfigure(0, weight=1)
 
     # Add a section of text to the card
-    def add_text(self,text,font='Corbel 11'):
-        self.body.append(tk.Label(self.content,text=text,bg=colour.bg_2,fg=colour.txt_1, font=font))
-        self.body[-1].grid(column=0, sticky='NSEW',pady=4)
+    def add_text(self, text, font='Corbel 11'):
+        self.body.append(tk.Label(self.content, text=text, bg=colour.bg_2, fg=colour.txt_1, font=font))
+        self.body[-1].grid(column=0, sticky='NSEW', pady=4)
 
     # Add a section of math to the card
-    def add_math(self,text,font='Corbel 11'):
-        self.body.append(tk.Label(self.content,text=text,bg=colour.bg_2,fg=colour.txt_1, font=font))
-        self.body[-1].grid(column=0, sticky='NSEW',pady=4)
+    def add_math(self, text, font='Corbel 11'):
+        self.body.append(tk.Label(self.content, text=text, bg=colour.bg_2, fg=colour.txt_1, font=font))
+        self.body[-1].grid(column=0, sticky='NSEW', pady=4)
 
     # Add a single button to accept the card
     def add_single_button(self):
@@ -84,18 +96,23 @@ class Card(tk.Frame):
                 if "<txt>" in txt:
                     self.add_text(txt[5:])
                 elif "<math>" in txt:
-                    self.add_math(txt[6:])
+                    math = txt[6:]
+
+                    for key, value in symbols.items():
+                        math = math.replace("[%s]" % key, value[0])
+
+                    math = math.replace("cdot", "•")
+
+                    self.add_math(math)
 
                 elif "<def>" in txt:
                     symbol = txt.split('=')[0].split('[')[1].split(']')[0]
-                    equation=txt.split('=')[1]
-
-                    symbols[symbol] = (letters.pop(random.randrange(0, len(letters))),0)
-                    self.add_math("%s = %s"%symbols[symbol] )
-                    print(symbol)
+                    equation = txt.split('=')[1]
+                    symbols[symbol] = (letters.pop(random.randrange(0, len(letters))), solve_equation(equation))
+                    self.add_math("%s = %s" % symbols[symbol])
 
             if type(question["Answer"]) == list and len(question["Answer"]) == 3:
-                correct = random.randint(0,2)
+                correct = random.randint(0, 2)
                 ans = question["Answer"]
 
                 get = ans[0], ans[correct]
@@ -143,7 +160,7 @@ class Queue:
         self.position += (self.target - self.position) * min(delta_t * 5.0, 1.0)
         self.root.place(x=60, y=self.position)
 
-    def append_card(self,card):
+    def append_card(self, card):
         self.cards.append(card)
         self.cards[-1].grid(row=len(self.cards) - 1, column=0, pady=15)
         self.root.update()
