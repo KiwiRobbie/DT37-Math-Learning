@@ -34,6 +34,7 @@ class Complex:
     def __str__(self):
         return "%d+%di"%(self.real,self.imag)
 
+
 # Object for storing data of nodes in tree
 class Node:
     def __init__(self):
@@ -61,8 +62,13 @@ class Tree:
         self.nodes[level][parent].nodes.append(len(self.nodes[level+1])-1)
 
     # Build a tree from json data
-    def build(self):
-        pass
+    def build(self, data, level=0, parent=0):
+        if type(data) != list:
+            self.add_child(level, parent, data)
+        else:
+            self.add_child(level, parent, data.pop(1))
+            self.build(data[0], level+1, len(self.nodes[level+1])-1)
+            self.build(data[1], level+1, len(self.nodes[level+1])-1)
 
     # Evaluate the entire tree and return a value
     def evaluate(self):
@@ -73,6 +79,7 @@ class Tree:
                 # Evaluate the node if it has children
                 if len(self.nodes[level][node].nodes):
                     active = self.nodes[level][node]
+                    print(active.data, active.nodes, level, node)
                     left   = self.nodes[level+1][active.nodes[0]]
                     right  = self.nodes[level+1][active.nodes[1]]
 
@@ -102,6 +109,14 @@ class Tree:
 
 # Test that the systems are working
 if __name__ == "__main__":
+
+    json_data=[2,'+',2]
+
+    eq = Tree()
+    eq.build(json_data)
+    print(eq.evaluate())
+
+    """
     equation = Tree()
     equation.nodes[0][0].data="*"
     equation.add_child(0,0,"+")
@@ -114,3 +129,4 @@ if __name__ == "__main__":
     equation.add_child(1,1,"randc{10}")
 
     print(equation.evaluate())
+    """

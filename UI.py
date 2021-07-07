@@ -18,7 +18,7 @@ def solve_equation(equation, symbols={}):
             equation[i] = equation[i] if equation[i] != " " else " 0"
     return ''.join(equation)
 
-    
+
 class Card(tk.Frame):
     def __init__(self, root) -> None:
         super().__init__(root, bg=colour.bg_3)
