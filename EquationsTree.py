@@ -44,7 +44,7 @@ class Node:
         self.nodes  = list()
 
 # Tree of nodes that represents mathematical equation
-class Tree:
+class EquationsTree:
     # Stores nodes in a 2D list indexed by depth then order added
     def __init__(self):
         self.nodes = list()
