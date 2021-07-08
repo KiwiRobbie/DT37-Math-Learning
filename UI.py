@@ -2,6 +2,7 @@ import tkinter as tk
 from UI_Styles import DarkTheme
 import json
 import random
+from EquationsTrees import EquationsTree
 import re
 
 colour = DarkTheme()
@@ -117,6 +118,10 @@ class Card(tk.Frame):
 
                 get = ans[0], ans[correct]
                 ans[correct], ans[0] = get
+
+                trees = [ EquationsTree() for i in range(3) ]
+                trees = [ tree.build(ans[i]) for i, tree in enumerate(trees) ]
+                ans = [ tree.evaluate() for tree in trees ]
 
                 self.add_tri_button(ans, correct)
 
