@@ -12,6 +12,7 @@ class DarkTheme:
         # Colours for foreground elements
         self.fg_1 = '#7289da'
         self.fg_2 = '#ff904c  '
+
         # Colours for text elements
         self.txt_1 = '#FFFFFF'
         self.txt_2 = '#AAAAAA'

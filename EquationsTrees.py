@@ -1,39 +1,7 @@
 # Class for solving and storing equations using trees
 import random
 import operator as op
-
-# Complex Number class
-class Complex:
-    # Create number from expression or values
-    def __init__(self, a=0, b=0, exp=''):
-        self.real = a
-        self.imag = b
-
-        if exp != '':
-            self.evaluate(exp)
-
-    # Evaluate expression
-    def evaluate(self,exp):
-        if "randc" in exp:
-            rand_range = int(exp[exp.find("{")+1:exp.find("}")])
-            self.real = random.randint(-rand_range,rand_range)
-            self.imag = random.randint(-rand_range,rand_range)
-
-    # Add complex numbers
-    def __add__(self, other):
-        return Complex(self.real+other.real,self.imag+other.imag)
-
-    # Subtract complex numbers
-    def __sub__(self, other):
-        return Complex(self.real-other.real,self.imag-other.imag)
-
-    # Multiply complex numbers
-    def __mul__(self, other):
-        return Complex(self.real*other.real - self.imag*other.imag,self.real+other.imag+self.imag+other.real)
-
-    # Convert to string for printing
-    def __str__(self):
-        return "%d+%di"%(self.real,self.imag)
+from Complex import Complex
 
 
 # Node object for tree class
@@ -78,6 +46,18 @@ class EquationsTree:
             self.build(data[0], level+1, len(self.nodes[level])-1)
             self.build(data[1], level+1, len(self.nodes[level])-1)
 
+    # Use symbol dict to insert known values into variables
+    def insert_symbols(self, symbols):
+        for y, level in enumerate(self.nodes):
+            for x, node in enumerate(level):
+                for key, value in symbols.items():
+
+                    if( "[%s]"%key == node.data):
+                        print(value[1])
+                        self.nodes[y][x].data = value[1]
+                    else:
+                        print(node.data)
+
     # Evaluate the entire tree and return a value
     def evaluate(self):
         # Starting from the second deepest level move back through the tree ( Deepest layer containing operations )
@@ -106,6 +86,11 @@ class EquationsTree:
 
                     if type(right.data) == str:
                         right.data = Complex(exp=right.data)
+
+                    if active.data == "+": active.data = op.add
+                    if active.data == "-": active.data = op.sub
+                    if active.data == "*": active.data = op.mul
+                    if active.data == "/": active.data = op.div
 
                     # If the current node is an operation perform it on the child nodes
                     active.data = active.data(left.data, right.data)

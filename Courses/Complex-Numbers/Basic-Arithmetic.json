@@ -4,16 +4,16 @@
 
   "Questions" : {
     "Addition": {
-      "Question": ["<def>[a]=$randc{5}$","<def>[b]=$randc{5}$","<txt>What is the value of: ","<math>[a]+[b]"],
-      "Answer": ["<calc>[a]+[b]","<math>$randc{10}$,","<math>$randc{10}$"]
+      "Question": [["<def>" , "[a]=$randc{5}$"],["<def>" , "[b]=$randc{5}$"],["<txt>" , "What is the value of: "],["<math>" , "[a]+[b]"]],
+      "Answer": [["[a]","+","[b]"],["$randc{5}","*","randc{5}$"],["$randc{5}","*","randc{5}$"]]
     },
     "Subtraction": {
-      "Question": ["<def>[a]=$randc{5}$","<def>[b]=$randc{5}$","<txt>What is the value of: ","<math>[a]-[b]"],
-      "Answer": ["<calc>[a]-[b]","<calc>$randc{5}$-$randc{5}$,","<calc>$randc{5}$-$randc{5}$,"]
+      "Question": [["<def>" , "[a]=$randc{5}$"],["<def>" , "[b]=$randc{5}$"],["<txt>" , "What is the value of: "],["<math>" , "[a]-[b]"]],
+      "Answer": [["[a]","-","[b]"],["$randc{5}","*","randc{5}$"],["$randc{5}","*","randc{5}$"]]
     },
     "Multiplication": {
-      "Question": ["<def>[a]=$randc{4}$","<def>[b]=$randc{4}$","<txt>What is the value of: ","<math>[a] cdot [b]"],
-      "Answer": ["<calc>[a]*[b]","<calc>$randc{5}*randc{5}$,","<calc>$randc{5}*randc{5}$,"]
+      "Question": [["<def>" , "[a]=$randc{4}$"],["<def>" , "[b]=$randc{4}$"],["<txt>" , "What is the value of: "],["<math>" , "[a] cdot [b]"]],
+      "Answer": [["[a]","*","[b]"],["$randc{4}","*","randc{4}$"],["$randc{4}","*","randc{4}$"]]
     }
   }
 }
