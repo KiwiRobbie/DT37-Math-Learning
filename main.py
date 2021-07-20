@@ -1,5 +1,4 @@
 import random
-
 from WindowDark import WindowDark
 import time
 import UI
@@ -12,7 +11,7 @@ main_queue = UI.Queue(root.root)
 last_t = time.time()
 delta_t = 0
 
-for i in range(10):
+for i in range(2):
     new_card = UI.Card(main_queue.root)
     new_card.load_file('Courses/Complex-Numbers/Basic-Arithmetic.json')
     main_queue.append_card(new_card)

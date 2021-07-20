@@ -3,28 +3,25 @@ from UI_Styles import DarkTheme
 import json
 import random
 from EquationsTrees import EquationsTree
+from Complex import  Complex
 import re
 
 colour = DarkTheme()
-
 
 def solve_equation(equation, symbols={}):
     equation = equation.split("$")
     for i, eq in enumerate(equation):
         if "randc" in eq:
             r = int(eq.split("{")[1].split("}")[0])
-            equation[i] = ("_%d+_%di" % (random.randint(-r, r), random.randint(-r, r))) \
-                .replace("+-", "-").replace("1i", "i").replace("_-","-").replace("_", " ")
-            equation[i] = re.sub(".0i|0.", "", equation[i])
-            equation[i] = equation[i] if equation[i] != " " else " 0"
-    return ''.join(equation)
-
+            equation[i] = (random.randint(-r, r), random.randint(-r, r))
+    return Complex( *equation[1] )
 
 class Card(tk.Frame):
     def __init__(self, root) -> None:
         super().__init__(root, bg=colour.bg_3)
         self.columnconfigure(0, weight=1)
 
+        self.root = root
         self.title = 0
         self.body = []
         self.input = 0
@@ -32,6 +29,9 @@ class Card(tk.Frame):
         self.correct_response = []
         self.content = 0
         self.buttons = []
+
+        self.x = 0
+        self.y = 0
 
     # Add a banner holding the title to the top of the card
     def add_title(self, title):
@@ -66,8 +66,17 @@ class Card(tk.Frame):
         self.input.grid(column=0, sticky='NSEW', pady=2)
 
     # Add a multi-choice input
-    def add_tri_button(self, answers, correct):
-        self.responses = answers
+    def add_tri_button(self, answers, symbols, correct):
+        def create_response(data, symbols):
+            eq_tree =  EquationsTree()
+            eq_tree.build(data)
+            eq_tree.insert_symbols(symbols)
+            return eq_tree.evaluate()
+
+        self.responses = [ create_response(data, symbols) for data in answers]
+
+
+
         self.correct_response = correct
 
         self.input = tk.Frame(self, width=320, height=32, bg=colour.bg_3)
@@ -94,10 +103,10 @@ class Card(tk.Frame):
 
             question = random.choice(list(data["Questions"].values()))
             for txt in question["Question"]:
-                if "<txt>" in txt:
-                    self.add_text(txt[5:])
-                elif "<math>" in txt:
-                    math = txt[6:]
+                if "<txt>" in txt[0]:
+                    self.add_text(txt[1])
+                elif "<math>" in txt[0]:
+                    math = txt[1]
 
                     for key, value in symbols.items():
                         math = math.replace("[%s]" % key, value[0])
@@ -106,9 +115,9 @@ class Card(tk.Frame):
 
                     self.add_math(math)
 
-                elif "<def>" in txt:
-                    symbol = txt.split('=')[0].split('[')[1].split(']')[0]
-                    equation = txt.split('=')[1]
+                elif "<def>" in txt[0]:
+                    symbol = txt[1].split('=')[0].split('[')[1].split(']')[0]
+                    equation = txt[1].split('=')[1]
                     symbols[symbol] = (letters.pop(random.randrange(0, len(letters))), solve_equation(equation))
                     self.add_math("%s = %s" % symbols[symbol])
 
@@ -119,23 +128,28 @@ class Card(tk.Frame):
                 get = ans[0], ans[correct]
                 ans[correct], ans[0] = get
 
-                trees = [ EquationsTree() for i in range(3) ]
-                trees = [ tree.build(ans[i]) for i, tree in enumerate(trees) ]
-                ans = [ tree.evaluate() for tree in trees ]
-
-                self.add_tri_button(ans, correct)
+                self.add_tri_button(ans, symbols, correct)
 
     def correct(self):
-        print('Correct')
+        print(id(self.queue))
+        self.queue.pop_card( self.queue.cards.index(self)  )
+        print(id(self.queue))
 
     def incorrect(self):
         print('Try Again')
 
+    def animate(self, delta_t):
+        # self.place(y=self.y,x=self.x)
+        # self.x+=(100+25*self.x)*delta_t
+        # print(self.x)
+        self.config(height=100)
+        self.grid()
 
 class Queue:
     def __init__(self, root) -> None:
         self.root = tk.Frame(root, bg=colour.bg_3)
         self.cards = []
+        self.animated = []
 
         self.target = 100
         self.position = 100
@@ -158,21 +172,33 @@ class Queue:
 
         self.target += event.delta / 2
 
+    def append_card(self, card):
+        print(id(self))
+        card.queue = self
+        self.cards.append(card)
+        self.cards[-1].grid(row=len(self.cards) - 1, column=0, pady=15, padx=60)
+        self.root.update()
+        self.length = max(600, self.root.winfo_height())
+
+    def pop_card(self, i, correct=1):
+        self.animated.append(self.cards[i])
+        self.cards[i].destroy()
+        self.cards[i] = tk.Frame(self.root,width=360, height=30,bg='green' )
+
+        # self.animated[-1].grid_forget()
+        # self.cards[i]=tk.Frame(self.root,width=360, height=30+self.animated[-1].winfo_height(),bg='green' )
+        # self.cards[i].grid(row=i,column=0,padx=60)
+
+
     def update(self, delta_t):
         self.target += max((660 - self.target - self.length) * delta_t * 10, 0)
         self.target += min((60 - self.target) * delta_t * 10, 0)
 
         self.position += (self.target - self.position) * min(delta_t * 5.0, 1.0)
-        self.root.place(x=60, y=self.position)
+        self.root.place(x=0, y=self.position)
 
-    def append_card(self, card):
-        self.cards.append(card)
-        self.cards[-1].grid(row=len(self.cards) - 1, column=0, pady=15)
-        self.root.update()
-        self.length = max(600, self.root.winfo_height())
-
-    def remove_card(self):
-        pass
+        for card in self.animated:
+            card.animate(delta_t)
 
 
 if __name__ == "__main__":
