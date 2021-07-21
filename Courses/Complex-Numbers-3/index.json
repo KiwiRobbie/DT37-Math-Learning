@@ -1,5 +1,5 @@
 {
-  "Course" : "Complex Numbers",
+  "Course" : "Complex Numbers 3",
   "Sections" : [
     {
       "File" : "Complex-Arithmetic.json",
@@ -11,6 +11,5 @@
       "Title" : "Complex Conjugate",
       "Description" : "Learn about the conjugate of a complex number"
     }
-
   ]
 }

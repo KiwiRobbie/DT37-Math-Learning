@@ -19,7 +19,7 @@ colour = DarkTheme()
 
 class WindowDark(tk.Tk):
     # Override the default init for Tk window class
-    def __init__(self, w, h, x=710, y=100):
+    def __init__(self, w, h, title=""):
         # Create a new window using override direct
         super().__init__()
         self.geometry('{}x{}+{}+{}'.format(w, h + 20, int((1920 - w) / 2), int((1080 - h - 20) / 2)))
@@ -29,9 +29,14 @@ class WindowDark(tk.Tk):
         self.last_y = 0
 
         # Create a title bar
-        window_bar = tk.Frame(self, bg=colour.bg_1, width=500, height=20)
+        window_bar = tk.Frame(self, bg=colour.bg_1, width=w, height=20)
+        window_bar.grid_propagate(False)
+        window_bar.columnconfigure(0,weight=1)
         window_bar.place(x=0, y=0)
         window_bar.lift()
+
+        self.title = tk.Label(window_bar,text=title,bg=colour.bg_1,fg=colour.txt_2, font='Corbel 10 bold')
+        self.title.grid(row=0,column=0,sticky='NSEW')
 
         # Add an exit button
         exit_frame = tk.Frame(window_bar, bg=colour.bg_1, width=20, height=20)
@@ -46,6 +51,9 @@ class WindowDark(tk.Tk):
         # Bind events for dragging the window around
         window_bar.bind('<B1-Motion>', self.move_window)
         window_bar.bind('<ButtonPress-1>', self.mouse_down)
+        self.title.bind('<B1-Motion>', self.move_window)
+        self.title.bind('<ButtonPress-1>', self.mouse_down)
+
 
         self.root = tk.Frame(self, width=w, height=h, bg=colour.bg_3)
         self.columnconfigure(0, weight=1)
@@ -65,6 +73,9 @@ class WindowDark(tk.Tk):
     def mouse_down(self, event):
         self.last_x = event.x_root
         self.last_y = event.y_root
+
+    def set_title(self, title):
+        self.title.config(text=title)
 
     # Function to quit the program
     def quit(self):
