@@ -37,3 +37,7 @@ class DarkTheme:
         self.txt_1 = '#FFFFFF'
         self.txt_2 = '#AAAAAA'
 
+        # Default Fonts
+        self.font_math  = 'Corbel 11'
+        self.font_text  = 'Corbel 11'
+        self.font_title = 'Corbel 16 bold'

@@ -1,25 +1,37 @@
 import random
 from WindowDark import WindowDark
 import time
-import UI
+import ModuleScreen
+import GameScreen
 import tkinter as tk
 
-root = WindowDark(480, 700, 0, 0)
+root = WindowDark(480, 700)
 
-main_queue = UI.Queue(root.root)
+
+menu_screen = ModuleScreen.Screen(root)
 
 last_t = time.time()
 delta_t = 0
 
-for i in range(5):
-    new_card = UI.Card(main_queue.root)
+while menu_screen.running:
+    menu_screen.update(delta_t)
+    root.update()
+
+    t = time.time()
+    delta_t = t - last_t
+    last_t = t
+
+menu_screen.destroy()
+game_screen = GameScreen.Queue(root.root) #menu_screen.game_screen
+
+for i in range(2):
+    new_card = GameScreen.Card(game_screen.root)
     new_card.load_file('Courses/Complex-Numbers/Basic-Arithmetic.json')
-    main_queue.append_card(new_card)
+    game_screen.append_card(new_card)
 
 
 while True:
-    main_queue.update(delta_t)
-
+    game_screen.update(delta_t)
     root.update()
 
     t = time.time()

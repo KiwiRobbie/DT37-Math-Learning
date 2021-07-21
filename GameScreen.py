@@ -7,9 +7,9 @@ from Complex import  Complex
 import re
 import math
 import copy
+from Queue import Queue as BaseQueue
 
-
-colour = DarkTheme()
+style = DarkTheme()
 
 def solve_equation(equation, symbols={}):
     equation = equation.split("$")
@@ -22,7 +22,7 @@ def solve_equation(equation, symbols={}):
 
 class Card(tk.Frame):
     def __init__(self, root) -> None:
-        super().__init__(root, bg=colour.bg_3)
+        super().__init__(root, bg=style.bg_3)
         self.columnconfigure(0, weight=1)
 
         self.root = root
@@ -35,7 +35,7 @@ class Card(tk.Frame):
         self.buttons = []
         self.answered = True
 
-        self.colour = copy.copy(colour)
+        self.colour = copy.copy(style)
 
         self.t = 0
         self.y = 0
@@ -141,14 +141,14 @@ class Card(tk.Frame):
         self.queue.pop_card( self.queue.cards.index(self),correct=1  )
         if type(index) is not None:
             for i in range(3):
-                self.buttons[i].config(fg=colour.fg_cor, bg=colour.bg_cor)
+                self.buttons[i].config(fg=style.fg_cor, bg=style.bg_cor)
 
 
     def incorrect(self, index=None):
         self.queue.pop_card( self.queue.cards.index(self),correct=0 )
         if type(index) is not None:
             for i in range(3):
-                self.buttons[i].config(fg=(colour.fg_cor if i==index else colour.fg_err ),bg=(colour.bg_cor if i==index else colour.bg_err ))
+                self.buttons[i].config(fg=(style.fg_cor if i == index else style.fg_err), bg=(style.bg_cor if i == index else style.bg_err))
 
     def animate(self, delta_t):
         def curve(x):
@@ -159,13 +159,8 @@ class Card(tk.Frame):
         self.t+=delta_t
         return self.t >= 1
 
-class Queue:
-    class Buffer(tk.Frame):
-        def __init__(self, root, height):
-            super().__init__(root, width=320, height=height, bg=colour.bg_3)
-            self.height=height
-            self.t = -0.5
-
+class Queue(BaseQueue):
+    class Buffer(BaseQueue.Buffer):
         def animate(self,delta_t):
             def curve(x):
                 x = max(min(x,1),0)
@@ -177,13 +172,14 @@ class Queue:
             return self.t >= 0.2
 
     def __init__(self, root) -> None:
-        self.root = tk.Frame(root, bg=colour.bg_3)
+        self.root = tk.Frame(root, bg=style.bg_3)
         self.cards = []
         self.animated = []
 
         self.target = 100
         self.position = 100
         self.length = 0
+        self.padx = 80
 
         self.root.place(x=80, y=self.position)
         self.top_buffer = self.Buffer(self.root,height=200)
@@ -199,21 +195,6 @@ class Queue:
         self.root.lower()
         root.lower()
 
-    def scroll_handler(self, event):
-        if event.num == 5:
-            self.target -= 45
-        elif event.num == 4:
-            self.target += 45
-
-        self.target += event.delta / 2
-
-    def append_card(self, card):
-        card.queue = self
-        self.cards.append(card)
-        self.cards[-1].grid(row=len(self.cards), column=0, pady=15, padx=80)
-        self.root.update()
-        self.length = max(600, self.root.winfo_height()-1060)
-
     def pop_card(self, i, correct=1):
         removed = self.cards[i]
         removed.answered = correct
@@ -225,12 +206,10 @@ class Queue:
         self.animated.append(removed)
 
     def update(self, delta_t):
-        self.target += max((700 - self.target - self.length) * delta_t * 10, 0)
-        self.target += min((- self.target) * delta_t * 10, 0)
+        super().update(delta_t)
+        self.animate(delta_t)
 
-        self.position += (self.target - self.position) * min(delta_t * 5.0, 1.0)
-        self.root.place(x=0, y=self.position-140)
-
+    def animate(self, delta_t):
         for i, card in enumerate(self.animated):
             if card.animate(delta_t):
                 if card in self.cards:
