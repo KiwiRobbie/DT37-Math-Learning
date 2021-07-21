@@ -51,12 +51,8 @@ class EquationsTree:
         for y, level in enumerate(self.nodes):
             for x, node in enumerate(level):
                 for key, value in symbols.items():
-
                     if( "[%s]"%key == node.data):
-                        print(value[1])
                         self.nodes[y][x].data = value[1]
-                    else:
-                        print(node.data)
 
     # Evaluate the entire tree and return a value
     def evaluate(self):
