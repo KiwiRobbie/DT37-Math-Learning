@@ -2,8 +2,8 @@
   "Course" : "Complex Numbers",
   "Sections" : [
     {
-      "File" : "Basic-Arithmetic.json",
-      "Title" : "Basic Arithmetic",
+      "File" : "Complex-Arithmetic.json",
+      "Title" : "Complex Arithmetic",
       "Description" : "Learn how to add subtract and multiply complex numbers"
     },
     {
