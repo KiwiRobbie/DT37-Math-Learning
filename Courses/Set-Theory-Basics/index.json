@@ -1,0 +1,13 @@
+{
+  "Course" : "Complex Numbers",
+  "Sections" : {
+    "Upgrade ZFC Set Theory":{
+      "File" : "Complex-Arithmetic.json",
+      "Description" : "Make some basic upgrades to ZFC making it complete, consistent and decidable"
+    },
+    "Prove Everything" : {
+      "File" : "Complex-Conjugate.json",
+      "Description" : "Using this new theory to prove every possible mathematical theorem in existence"
+    }
+ }
+}

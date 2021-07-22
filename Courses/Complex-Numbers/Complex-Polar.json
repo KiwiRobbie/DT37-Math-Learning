@@ -1,6 +1,11 @@
 {
-  "Title" : "Complex Arithmetic",
-  "Intro": ["How to add complex numbers?"],
+  "Title" : "Polar Form",
+
+  "Queue": {
+    "Addition": 3,
+    "Subtraction": 3,
+    "Multiplication": 3
+  },
 
   "Questions" : {
     "Addition": {

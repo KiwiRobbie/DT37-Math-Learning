@@ -12,6 +12,7 @@ Class for creating windows that use a custom title bar and darktheme
 
 # WindowDark is an extension of the tkinter.Tk class
 import tkinter as tk
+
 from UI_Styles import DarkTheme
 
 colour = DarkTheme()
@@ -31,12 +32,12 @@ class WindowDark(tk.Tk):
         # Create a title bar
         window_bar = tk.Frame(self, bg=colour.bg_1, width=w, height=20)
         window_bar.grid_propagate(False)
-        window_bar.columnconfigure(0,weight=1)
+        window_bar.columnconfigure(0, weight=1)
         window_bar.place(x=0, y=0)
         window_bar.lift()
 
-        self.title = tk.Label(window_bar,text=title,bg=colour.bg_1,fg=colour.txt_2, font='Corbel 10 bold')
-        self.title.grid(row=0,column=0,sticky='NSEW')
+        self.title = tk.Label(window_bar, text=title, bg=colour.bg_1, fg=colour.txt_2, font='Corbel 10 bold')
+        self.title.grid(row=0, column=0, sticky='NSEW')
 
         # Add an exit button
         exit_frame = tk.Frame(window_bar, bg=colour.bg_1, width=20, height=20)
@@ -53,7 +54,6 @@ class WindowDark(tk.Tk):
         window_bar.bind('<ButtonPress-1>', self.mouse_down)
         self.title.bind('<B1-Motion>', self.move_window)
         self.title.bind('<ButtonPress-1>', self.mouse_down)
-
 
         self.root = tk.Frame(self, width=w, height=h, bg=colour.bg_3)
         self.columnconfigure(0, weight=1)
@@ -84,4 +84,4 @@ class WindowDark(tk.Tk):
 
 # Run the main script if we try to run the this file instead
 if (__name__ == '__main__'):
-    import main
+    pass

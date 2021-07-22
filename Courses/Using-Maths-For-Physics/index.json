@@ -1,0 +1,13 @@
+{
+  "Course" : "Complex Numbers",
+  "Sections" : {
+    "The Mathematics Of Time Travel":{
+      "File" : "Complex-Arithmetic.json",
+      "Description" : "Re-write the laws of physics using only basic addition and use them to build a time machine"
+    },
+    "Black Holes" : {
+      "File" : "Complex-Conjugate.json",
+      "Description" : "Create a testable solution to the black hole information paradox"
+    }
+ }
+}

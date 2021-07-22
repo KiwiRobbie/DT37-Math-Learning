@@ -1,6 +1,3 @@
-import tkinter as tk
-
-
 class DarkTheme:
     def __init__(self):
         # # Colours for background elements
@@ -38,6 +35,7 @@ class DarkTheme:
         self.txt_2 = '#AAAAAA'
 
         # Default Fonts
-        self.font_math  = 'Corbel 11'
-        self.font_text  = 'Corbel 11'
+        self.font_math = 'Corbel 11'
+        self.font_text = 'Corbel 11'
         self.font_title = 'Corbel 16 bold'
+        self.font_button = 'Corbel 14 bold'

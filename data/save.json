@@ -1,0 +1,58 @@
+{
+    "Complex Numbers": {
+        "Complex Arithmetic": {
+            "Progress": 1.0,
+            "Addition": 0,
+            "Subtraction": 0,
+            "Multiplication": 0
+        },
+        "Complex Conjugate": {
+            "Progress": 0
+        },
+        "Upgrade ZFC Set Theory": {
+            "Progress": 0
+        },
+        "Prove Everything": {
+            "Progress": 0
+        },
+        "The Mathematics Of Time Travel": {
+            "Progress": 0
+        },
+        "Black Holes": {
+            "Progress": 0
+        },
+        "Polar Form": {
+            "Progress": 0
+        },
+        "Polar Form 2": {
+            "Progress": 0
+        },
+        "": {
+            "Progress": 0
+        }
+    },
+    "An Introduction To Proofs": {
+        "Twin Prime Conjecture": {
+            "Progress": 0
+        },
+        "Fermats Last Theorem": {
+            "Progress": 0
+        }
+    },
+    "Set Theory Basics": {
+        "Upgrade ZFC Set Theory": {
+            "Progress": 0
+        },
+        "Prove Everything": {
+            "Progress": 0
+        }
+    },
+    "The Mathematics Of Physics": {
+        "The Mathematics Of Time Travel": {
+            "Progress": 0
+        },
+        "Black Holes": {
+            "Progress": 0
+        }
+    }
+}
