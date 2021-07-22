@@ -1,0 +1,24 @@
+{
+  "Title" : "Polar Form",
+
+  "Queue": {
+    "Addition": 3,
+    "Subtraction": 3,
+    "Multiplication": 3
+  },
+
+  "Questions" : {
+    "Addition": {
+      "Question": [["<def>" , "[a]=$randc{5}$"],["<def>" , "[b]=$randc{5}$"],["<txt>" , "What is the value of: "],["<math>" , "[a]+[b]"]],
+      "Answer": [["[a]","+","[b]"],["$randc{5}","*","randc{5}$"],["$randc{5}","*","randc{5}$"]]
+    },
+    "Subtraction": {
+      "Question": [["<def>" , "[a]=$randc{5}$"],["<def>" , "[b]=$randc{5}$"],["<txt>" , "What is the value of: "],["<math>" , "[a]-[b]"]],
+      "Answer": [["[a]","-","[b]"],["$randc{5}","*","randc{5}$"],["$randc{5}","*","randc{5}$"]]
+    },
+    "Multiplication": {
+      "Question": [["<def>" , "[a]=$randc{4}$"],["<def>" , "[b]=$randc{4}$"],["<txt>" , "What is the value of: "],["<math>" , "[a] cdot [b]"]],
+      "Answer": [["[a]","*","[b]"],["$randc{4}","*","randc{4}$"],["$randc{4}","*","randc{4}$"]]
+    }
+  }
+}

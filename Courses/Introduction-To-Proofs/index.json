@@ -1,0 +1,13 @@
+{
+  "Course" : "An Introduction To Proofs",
+  "Sections" : {
+    "Twin Prime Conjecture" : {
+      "File" : "Complex-Arithmetic.json",
+      "Description" : "Learn how to prove the twin prime conjecture using basic addition"
+    },
+    "Fermats Last Theorem" : {
+      "File" : "Complex-Conjugate.json",
+      "Description" : "Learn how to construct a two line proof of Fermats Last Theorem"
+    }
+ }
+}
