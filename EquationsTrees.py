@@ -83,10 +83,14 @@ class EquationsTree:
                     if type(right.data) == str:
                         right.data = Complex(exp=right.data)
 
-                    if active.data == "+": active.data = op.add
-                    if active.data == "-": active.data = op.sub
-                    if active.data == "*": active.data = op.mul
-                    if active.data == "/": active.data = op.div
+                    op_map = {
+                        "+": op.add,
+                        "-": op.sub,
+                        "*": op.mul,
+                        "/": op.truediv
+                    }
+
+                    active.data = op_map[active.data]
 
                     # If the current node is an operation perform it on the child nodes
                     active.data = active.data(left.data, right.data)

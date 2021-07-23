@@ -2,32 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20abca0b-a139-4a6d-91c4-0f8e03ca7227" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Courses/Complex-Numbers/Complex-Polar.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Courses/Introduction-To-Proofs/index.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Courses/Set-Theory-Basics/index.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Courses/Using-Maths-For-Physics/Basic-Arithmetic.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Courses/Using-Maths-For-Physics/index.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DT37-Math-Learning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DT37-Math-Learning.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Complex.py" beforeDir="false" afterPath="$PROJECT_DIR$/Complex.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-2/Basic-Arithmetic.json" beforeDir="false" afterPath="$PROJECT_DIR$/Courses/Complex-Numbers/Complex-Arithmetic.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-2/index.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-3/Basic-Arithmetic.json" beforeDir="false" afterPath="$PROJECT_DIR$/Courses/Complex-Numbers/Complex-Conjugate.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-3/index.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-4/Basic-Arithmetic.json" beforeDir="false" afterPath="$PROJECT_DIR$/Courses/Set-Theory-Basics/Basic-Arithmetic.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-4/index.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers/Basic-Arithmetic.json" beforeDir="false" afterPath="$PROJECT_DIR$/Courses/Introduction-To-Proofs/Basic-Arithmetic.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/Courses/Complex-Numbers/index.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EquationsTrees.py" beforeDir="false" afterPath="$PROJECT_DIR$/EquationsTrees.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameScreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameScreen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ModuleScreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModuleScreen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Queue.py" beforeDir="false" afterPath="$PROJECT_DIR$/Queue.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_Styles.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_Styles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WindowDark.py" beforeDir="false" afterPath="$PROJECT_DIR$/WindowDark.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/equation.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/list_fonts.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/save.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/save.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +21,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_HOME_DIR$/plugins/python-ce/helpers/typeshed/stdlib/builtins.pyi" root0="SKIP_INSPECTION" />
