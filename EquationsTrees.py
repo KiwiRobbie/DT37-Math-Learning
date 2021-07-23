@@ -1,6 +1,5 @@
 # Class for solving and storing equations using trees
 import operator as op
-
 from Complex import Complex
 
 

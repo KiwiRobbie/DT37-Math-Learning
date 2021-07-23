@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="20abca0b-a139-4a6d-91c4-0f8e03ca7227" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Courses/Complex-Numbers/Complex-Polar.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Courses/Introduction-To-Proofs/index.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Courses/Set-Theory-Basics/index.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Courses/Using-Maths-For-Physics/Basic-Arithmetic.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Courses/Using-Maths-For-Physics/index.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DT37-Math-Learning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DT37-Math-Learning.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Complex.py" beforeDir="false" afterPath="$PROJECT_DIR$/Complex.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-2/Basic-Arithmetic.json" beforeDir="false" afterPath="$PROJECT_DIR$/Courses/Complex-Numbers/Complex-Arithmetic.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-2/index.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-3/Basic-Arithmetic.json" beforeDir="false" afterPath="$PROJECT_DIR$/Courses/Complex-Numbers/Complex-Conjugate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-3/index.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-4/Basic-Arithmetic.json" beforeDir="false" afterPath="$PROJECT_DIR$/Courses/Set-Theory-Basics/Basic-Arithmetic.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers-4/index.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers/Basic-Arithmetic.json" beforeDir="false" afterPath="$PROJECT_DIR$/Courses/Introduction-To-Proofs/Basic-Arithmetic.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Courses/Complex-Numbers/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/Courses/Complex-Numbers/index.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EquationsTrees.py" beforeDir="false" afterPath="$PROJECT_DIR$/EquationsTrees.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameScreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameScreen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ModuleScreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModuleScreen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Queue.py" beforeDir="false" afterPath="$PROJECT_DIR$/Queue.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_Styles.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_Styles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WindowDark.py" beforeDir="false" afterPath="$PROJECT_DIR$/WindowDark.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/equation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/list_fonts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python-ce/helpers/typeshed/stdlib/builtins.pyi" root0="SKIP_INSPECTION" />
+    <setting file="file://$USER_HOME$/AppData/Local/JetBrains/PyCharmCE2021.1/python_stubs/-798011583/builtins.py" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProjectId" id="1unOk78b1aRx0kceHcLtas5sO7h" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/main.py" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Windows\Documents\GitHub\DT37-Math-Learning\Courses\Complex-Numbers" />
+      <recent name="E:\Windows\Documents\GitHub\DT37-Math-Learning" />
+      <recent name="E:\Windows\Documents\GitHub\DT37-Math-Learning\Courses" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Windows\Documents\GitHub\DT37-Math-Learning\data" />
+      <recent name="E:\Windows\Documents\GitHub\DT37-Math-Learning" />
+      <recent name="E:\Windows\Documents\GitHub\DT37-Math-Learning\Testing" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.Main">
+    <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="DT37-Math-Learning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\rbchr\PycharmProjects\pythonProject\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="equation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DT37-Math-Learning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\rbchr\PycharmProjects\pythonProject\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/equation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.Main" />
+      <item itemvalue="Python.equation" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Main" />
+        <item itemvalue="Python.equation" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="20abca0b-a139-4a6d-91c4-0f8e03ca7227" name="Default Changelist" comment="" />
+      <created>1625298029815</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1625298029815</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>
