@@ -3,9 +3,10 @@ import random
 import time
 import tkinter as tk
 import sys
+import copy
 
 from Complex import Complex
-from EquationsTrees import EquationsTree
+from EquationTree import EquationTree
 from Queue import Queue as BaseQueue
 from UI_Styles import DarkTheme
 
@@ -148,7 +149,7 @@ class Card(tk.Frame):
     def add_tri_button(self, answers, correct):
         # Evaluates equations for each answer
         def create_response(data, data_symbols):
-            eq_tree = EquationsTree()  # Create a new tree
+            eq_tree = EquationTree()  # Create a new tree
             eq_tree.build(data)  # Build tree from provided data
             eq_tree.insert_symbols(data_symbols)  # Insert the corresponding value for each variable in the equation
             return eq_tree.evaluate()  # Evaluate the tree and return the result
@@ -178,7 +179,7 @@ class Card(tk.Frame):
                           command=(lambda: self.correct(i)) if self.correct_response == i  # If this the correct button
                           else (lambda: self.incorrect(self.correct_response))))  # If the button is incorrect
 
-            # Place the new butto with .grid()
+            # Place the new button with .grid()
             self.buttons[-1].grid(row=0, column=i, sticky='NESW', padx=(2 * (i != 0), 2 * (i != 2)))
 
     # Create a card from json data
@@ -221,11 +222,13 @@ class Card(tk.Frame):
             # If the data is for a definition
             elif "<def>" in txt[0]:
                 # Extract the symbol that is been defined and the equation defining it
-                symbol = txt[1].split('=')[0].split('[')[1].split(']')[0]
-                equation = txt[1].split('=')[1]
+                symbol = txt[1][0].split('[')[1].split(']')[0]
+                eq_tree = EquationTree()
+                eq_tree.build(txt[1][1][0])
+                eq_tree.insert_symbols({})
 
-                # Update the symbol dict with the new symbol and its value
-                self.symbols[symbol] = (letters.pop(random.randrange(0, len(letters))), solve_equation(equation))
+                # Update the symbol dict the letter and value of the current symbol
+                self.symbols[symbol] = (letters.pop(random.randrange(0, len(letters))), eq_tree.evaluate())
 
                 # Add the letter and value as math to the cards body
                 self.add_math("%s = %s" % self.symbols[symbol])
@@ -234,7 +237,9 @@ class Card(tk.Frame):
         if type(data["Answer"]) == list and len(data["Answer"]) == 3:
             # Pick a location for the correct answer and load the equations for the possible answers
             correct = random.randint(0, 2)
-            ans = data["Answer"]
+
+            # Make a copy of the answers in a different location ( Pass by value )
+            ans = copy.copy(data["Answer"])
 
             # Swap the value at the chosen index and the correct answer
             get = ans[0], ans[correct]
@@ -295,16 +300,6 @@ class Card(tk.Frame):
         x = max(x, sys.float_info.min)
         k = 100
         return -k / (2 * x) + k, x >= 0.5
-
-
-# Basic solver for symbol definition equations only containing random numbers
-def solve_equation(equation):
-    equation = equation.split("$")
-    for i, eq in enumerate(equation):
-        if "randc" in eq:
-            r = int(eq.split("{")[1].split("}")[0])
-            equation[i] = (random.randint(-r, r), random.randint(-r, r))
-    return Complex(*equation[1])
 
 
 # Extension of the base queue class

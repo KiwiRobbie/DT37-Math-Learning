@@ -1,4 +1,5 @@
 import random
+import math
 
 
 # Complex Number class
@@ -32,4 +33,20 @@ class Complex:
 
     # Convert to string for printing
     def __str__(self):
-        return "%d+%di" % (self.real, self.imag)
+        output = "%d%s%di" % (self.real, {-1: "-", 0: "+", 1: "+"}[math.copysign(1, self.imag)], abs(self.imag))
+        if output[0] == '0':
+            output = output[1:]
+
+        if output[0] == '+':
+            output = output[1:]
+
+        if output[-2] == '0':
+            output = output[:-3]
+
+        if output[-2:] == '1i':
+            output = output[:-2]+'i'
+
+        if output == '':
+            output = '0'
+
+        return output

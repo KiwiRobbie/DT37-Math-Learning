@@ -1,6 +1,7 @@
 # Class for solving and storing equations using trees
 import operator as op
 from Complex import Complex
+import random
 
 
 # Node object for tree class
@@ -12,7 +13,7 @@ class Node:
 
 
 # Tree of nodes that represents mathematical equation
-class EquationsTree:
+class EquationTree:
     # Stores nodes in a 2D list indexed by depth then order added
     def __init__(self):
         self.nodes = list()
@@ -20,7 +21,8 @@ class EquationsTree:
     # Add a node containing a piece of data ( Optionally attached to a parent node )
     def add_child(self, level, parent, data):
         # Extend the array if we are adding a new level
-        if len(self.nodes) <= level: self.nodes.append(list())
+        if len(self.nodes) <= level:
+            self.nodes.append(list())
 
         # Append the new node and set properties
         self.nodes[level].append(Node())
@@ -53,6 +55,16 @@ class EquationsTree:
                 for key, value in symbols.items():
                     if "[%s]" % key == node.data:
                         self.nodes[y][x].data = value[1]
+
+                if type(node.data) == str and len(node.data) >= 5:
+                    self.nodes[y][x].data = self.expression(node.data)
+
+    @staticmethod
+    def expression(data):
+        if "randc" in data:
+            data = data.split("{")[1].split("}")[0]
+            bounds = [int(n) for n in data.split(',')]
+            return Complex(random.randint(*bounds[0:2]), random.randint(*bounds[2:4]))
 
     # Evaluate the entire tree and return a value
     def evaluate(self):

@@ -2,11 +2,11 @@
     "Complex Numbers": {
         "Basic Complex Arithmetic": {
             "Progress": 1.0,
-            "What are complex numbers?": 1,
-            "Addition Tutorial": 1,
-            "Addition": 3,
-            "Subtraction Tutorial": 1,
-            "Subtraction": 3
+            "What are complex numbers?": 0,
+            "Addition Tutorial": 0,
+            "Addition": 0,
+            "Subtraction Tutorial": 0,
+            "Subtraction": 0
         },
         "Complex Multiplication": {
             "Progress": 0.0,
