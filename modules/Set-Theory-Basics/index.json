@@ -1,5 +1,5 @@
 {
-  "Course" : "Complex Numbers",
+  "Module" : "Basics Of Set Theory",
   "Sections" : {
     "Upgrade ZFC Set Theory":{
       "File" : "Complex-Arithmetic.json",

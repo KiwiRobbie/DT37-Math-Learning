@@ -1,4 +1,4 @@
-# Screen for selecting a course and viewing current progress
+# Screen for selecting a module and viewing current progress
 import json
 import os
 import time
@@ -19,7 +19,7 @@ class Screen:
 
         # Store a reference to the programs main window
         self.window = root
-        self.window .set_title("MLG - Course Menu")
+        self.window .set_title("MLG - Module Menu")
 
         # Create a root frame to hold all elements in the screen
         self.root = tk.Frame(root, bg=style.bg_3, width=480, height=700)
@@ -30,14 +30,14 @@ class Screen:
         self.root.place(x=0, y=20)
         self.root.lift()
 
-        # Create a new queue scrollable queue to hold the courses
+        # Create a new queue scrollable queue to hold the modules
         self.main_queue = Queue(self.root)
 
-        # List of widgets containing available courses
-        self.courses = []
+        # List of widgets containing available modules
+        self.modules = []
 
-        # The name of the selected course
-        self.course = ''
+        # The name of the selected module
+        self.module = ''
 
         # Open the save file in write mode creating a new file or leaving an exiting one unmodified
         if not os.path.isfile("data/save.json"):
@@ -51,15 +51,15 @@ class Screen:
             data = "{\n}" if not data else data
             self.save_json = json.loads(data)
 
-            # For each item in the course directory if item is a directory
-            for folder in os.listdir("Courses"):
-                if os.path.isdir("Courses/%s" % folder):
-                    # Create a new course widget and add it to the main queue, pass references to the save json file
-                    self.courses.append(
-                        CourseWidget(self.main_queue.root, folder, self.save_json, self.return_course))
-                    self.main_queue.append_card(self.courses[-1])
+            # For each item in the module directory if item is a directory
+            for folder in os.listdir("modules"):
+                if os.path.isdir("modules/%s" % folder):
+                    # Create a new module widget and add it to the main queue, pass references to the save json file
+                    self.modules.append(
+                        ModuleWidget(self.main_queue.root, folder, self.save_json, self.return_module))
+                    self.main_queue.append_card(self.modules[-1])
 
-            # After course have loaded write the new save file to disk
+            # After module have loaded write the new save file to disk
             f.seek(0)
             json.dump(self.save_json, f, indent=4)
             f.truncate()
@@ -80,17 +80,17 @@ class Screen:
             delta_t = t - last_t
             last_t = t
 
-        # Once loop exits return the users selected course
-        return self.course
+        # Once loop exits return the users selected module
+        return self.module
 
-    # Update method for screen: Update the queue containing the courses
+    # Update method for screen: Update the queue containing the modules
     def update(self, delta_t):
         self.main_queue.update(delta_t)
 
     # Method to exit menu screen
-    def return_course(self, course):
-        # Set selected course
-        self.course = course
+    def return_module(self, module):
+        # Set selected module
+        self.module = module
 
         # Tell main loop to stop running and destroy the screens widgets
         self.running = False
@@ -115,9 +115,9 @@ class ProgressBar(tk.Frame):
 
 
 # Extension of the tk.Frame class
-# Widget class to be placed in course queue and display information about course
-class CourseWidget(tk.Frame):
-    # Class for displaying information about a subsection of a course, extension of tk.Frame
+# Widget class to be placed in module queue and display information about module
+class ModuleWidget(tk.Frame):
+    # Class for displaying information about a subsection of a module, extension of tk.Frame
     class Section(tk.Frame):
         # Override the default __init__ method of the tk.Frame class
         def __init__(self, root, title="", description="", save_json=[], blank=False):
@@ -151,7 +151,7 @@ class CourseWidget(tk.Frame):
                 self.progress_bar.grid(row=2, column=0, sticky="NSEW")
 
     # Override the default __init__  method for tk.Frame
-    def __init__(self, root, index_directory, save_json, return_course):
+    def __init__(self, root, index_directory, save_json, return_module):
         # Call the default __init__ to make self a tk.Frame and configure the frame
         super().__init__(root, bg=style.bg_3, width=360)
         self.columnconfigure(0, weight=1)
@@ -161,14 +161,14 @@ class CourseWidget(tk.Frame):
         self.directory = index_directory
 
         # Load the index json file
-        with open("Courses/%s/index.json" % index_directory, 'r') as f:
-            # Read data from index.json about the course
+        with open("modules/%s/index.json" % index_directory, 'r') as f:
+            # Read data from index.json about the module
             self.json = json.loads(f.read())
-            self.title = self.json["Course"]
+            self.title = self.json["Module"]
             self.section_titles = []
             self.section_descriptions = []
 
-            # Read data about the sections in the course
+            # Read data about the sections in the module
             for section in self.json["Sections"]:
                 self.section_titles.append(section)
                 self.section_descriptions.append(self.json["Sections"][self.section_titles[-1]]["Description"])
@@ -185,28 +185,28 @@ class CourseWidget(tk.Frame):
                                     font=style.font_title)
         self.title_label.grid(row=0, column=0, sticky="NSEW", pady=4)
 
-        # Load the save json specific to the course if it exists
+        # Load the save json specific to the module if it exists
         if self.title in save_json:
-            course_save_json = save_json[self.title]
+            module_save_json = save_json[self.title]
         else:
-            course_save_json = {}
+            module_save_json = {}
 
-        # Create a list to hold the sections in the course
+        # Create a list to hold the sections in the module
         self.sections = []
 
-        # Users overall progress through the course
+        # Users overall progress through the module
         self.overall_progress = 0
 
         # Loop over each title and description in the index file
         for i, section in enumerate(zip(self.section_titles, self.section_descriptions)):
-            # Append a new section widget to the course
-            self.sections.append(self.Section(self, section[0], section[1], course_save_json))
+            # Append a new section widget to the module
+            self.sections.append(self.Section(self, section[0], section[1], module_save_json))
 
             # Place the new widget using .grid() creating a 2 column list
             self.sections[-1].grid(row=(i // 2) + 1, column=i % 2, sticky='NSEW', pady=2,
                                    padx=(2 * (i % 2), 2 * (1 - i % 2)))
 
-            # Update overall progress for the course using the progress in the new section
+            # Update overall progress for the module using the progress in the new section
             self.overall_progress += self.sections[-1].progress/len(self.section_titles)
 
         # If an odd number of sections were added to the section list
@@ -227,12 +227,12 @@ class CourseWidget(tk.Frame):
         self.button_frame.grid(column=0, sticky="NSEW", columnspan=2, pady=2)
 
         # Add a button to the button frame, use begin or resume based on progress and a method to end the screen
-        # and return the course of the course widget that the button was added to
+        # and return the module of the module widget that the button was added to
         self.button = tk.Button(self.button_frame,
                                 text="Resume Section" if self.overall_progress > 0 else "Begin Section", bg=style.bg_2,
                                 fg=style.txt_1, font=style.font_button, bd=0,
-                                command=lambda: return_course(self.directory))
+                                command=lambda: return_module(self.directory))
         self.button.grid(row=0, column=0, sticky="NSEW")
 
-        # Update the save_json for the course
-        save_json[self.title] = course_save_json
+        # Update the save_json for the module
+        save_json[self.title] = module_save_json

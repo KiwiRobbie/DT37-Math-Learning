@@ -16,48 +16,48 @@ style = DarkTheme()
 class Screen:
     def __init__(self, root, directory):
         # Load the index and save json files
-        with open('Courses/%s/index.json' % directory, 'r') as f:
+        with open('modules/%s/index.json' % directory, 'r') as f:
             self.json_index = json.loads(f.read())
 
         with open('data/save.json', 'r') as f:
             self.json_save = json.loads(f.read())
 
-        # Find the first uncompleted section in the course been loaded
+        # Find the first uncompleted section in the module been loaded
         self.section = ""
         for section in self.json_index["Sections"].keys():
-            if self.json_save[self.json_index["Course"]][section]["Progress"] < 1:
+            if self.json_save[self.json_index["Module"]][section]["Progress"] < 1:
                 self.section = section
                 break
 
         # Save a reference to the root window and update its title
         self.window = root
-        self.course_title = self.json_index["Course"]
-        self.window.set_title("MLG - %s (%s)" % (self.course_title, self.section))
+        self.module_title = self.json_index["Module"]
+        self.window.set_title("MLG - %s (%s)" % (self.module_title, self.section))
 
         # Create new Queue object for the screen
         self.main_queue = Queue(root.root)
 
-        # Save the directory of the course index.json
+        # Save the directory of the module index.json
         self.directory = directory
 
         # Load the section json by looking up its location in the index file
-        with open('Courses/%s/%s' % (self.directory, self.json_index["Sections"][self.section]["File"]), 'r') as f:
+        with open('modules/%s/%s' % (self.directory, self.json_index["Sections"][self.section]["File"]), 'r') as f:
             self.json_section = json.loads(f.read())
 
         # For each question type in the section check if its progress is in the save file
         for question in self.json_section["Queue"]:
-            if question not in self.json_save[self.course_title][self.section]:
+            if question not in self.json_save[self.module_title][self.section]:
                 # If the save doesn't contain the remaining number of questions load that number from the sections file
-                self.json_save[self.course_title][self.section][question] = self.json_section["Queue"][question]
+                self.json_save[self.module_title][self.section][question] = self.json_section["Queue"][question]
 
             # Then add all remaining cards for the question type
-            for i in range(self.json_save[self.course_title][self.section][question]):
+            for i in range(self.json_save[self.module_title][self.section][question]):
                 new_card = Card(self.main_queue.root)
                 new_card.load({question: self.json_section["Questions"][question]})
                 self.main_queue.append_card(new_card)
 
         # Create a SaveManager object to handle saving json data and use it to update the save file
-        self.save_manager = SaveManager(self.json_save, self.json_section, self.course_title, self.section)
+        self.save_manager = SaveManager(self.json_save, self.json_section, self.module_title, self.section)
         self.save_manager.update_save()
 
         # Attach the save manager object to the main queue so it can access it too
@@ -93,19 +93,19 @@ class Card(tk.Frame):
         self.columnconfigure(0, weight=1)
 
         # Properties of the Card
-        self.root = root             # The root widget that the  card is placed in
-        self.title_text = ""         # The text in the cards title
-        self.title = None            # The widget holding the cards title
-        self.content = None          # The widget holding the content of the card
-        self.input = None            # The widget holding the input section of the card
-        self.responses = []          # List of possible responses for the card
-        self.correct_response = 0    # The index of the correct response to the card
-        self.body = []               # A list of all widgets inside the card
-        self.buttons = []            # A list of all button widgets for answering the question
-        self.answered = True         # True: User answered correctly, False: User answered incorrectly
-        self.symbols = {}            # Dict mapping each symbol in the question to a letter value pair
-        self.t = 0                   # Used for timing animations, time since start of animation
-        self.y = 0                   # Y-Coordinate of the card and the start of animation
+        self.root = root  # The root widget that the  card is placed in
+        self.title_text = ""  # The text in the cards title
+        self.title = None  # The widget holding the cards title
+        self.content = None  # The widget holding the content of the card
+        self.input = None  # The widget holding the input section of the card
+        self.responses = []  # List of possible responses for the card
+        self.correct_response = 0  # The index of the correct response to the card
+        self.body = []  # A list of all widgets inside the card
+        self.buttons = []  # A list of all button widgets for answering the question
+        self.answered = True  # True: User answered correctly, False: User answered incorrectly
+        self.symbols = {}  # Dict mapping each symbol in the question to a letter value pair
+        self.t = 0  # Used for timing animations, time since start of animation
+        self.y = 0  # Y-Coordinate of the card and the start of animation
         self.curve = self.out_curve  # Default animation curve to follow
 
     # Add a banner holding the title to the top of the card
@@ -129,29 +129,29 @@ class Card(tk.Frame):
         self.content.columnconfigure(0, weight=1)
 
     # Add a section of text to the cards content section
-    def add_text(self, text, font='Corbel 11'):
-        self.body.append(tk.Label(self.content, text=text, bg=style.bg_2, fg=style.txt_1, font=font))
-        self.body[-1].grid(column=0, sticky='NSEW', pady=4)
+    def add_text(self, text, font=style.font_text):
+        self.body.append(tk.Label(self.content, text=text, bg=style.bg_2, fg=style.txt_1, font=font, wraplength=320))
+        self.body[-1].grid(column=0, sticky='NSEW', pady=0)
 
     # Add a section of math to the cards content section
-    def add_math(self, text, font='Corbel 11'):
+    def add_math(self, text, font=style.font_math):
         self.body.append(tk.Label(self.content, text=text, bg=style.bg_2, fg=style.txt_1, font=font))
-        self.body[-1].grid(column=0, sticky='NSEW', pady=4)
+        self.body[-1].grid(column=0, sticky='NSEW')
 
     # Add a single button to accept the card
     def add_single_button(self):
         self.input = tk.Button(self, text='Ok', font='Corbel 12', relief='flat', bg=style.bg_2,
-                               fg=style.txt_1)
+                               fg=style.txt_1, bd=0, command=lambda: self.correct())
         self.input.grid(column=0, sticky='NSEW', pady=2)
 
     # Add a multi-choice input with three options
     def add_tri_button(self, answers, correct):
         # Evaluates equations for each answer
         def create_response(data, data_symbols):
-            eq_tree = EquationsTree()              # Create a new tree
-            eq_tree.build(data)                    # Build tree from provided data
-            eq_tree.insert_symbols(data_symbols)   # Insert the corresponding value for each variable in the equation
-            return eq_tree.evaluate()              # Evaluate the tree and return the result
+            eq_tree = EquationsTree()  # Create a new tree
+            eq_tree.build(data)  # Build tree from provided data
+            eq_tree.insert_symbols(data_symbols)  # Insert the corresponding value for each variable in the equation
+            return eq_tree.evaluate()  # Evaluate the tree and return the result
 
         # Generate responses from the equations for each response
         self.responses = [create_response(data, self.symbols) for data in answers]
@@ -175,8 +175,8 @@ class Card(tk.Frame):
             # correct or incorrect depending on the current button number and the index of the correct button
             self.buttons.append(
                 tk.Button(self.input, text=self.responses[i], relief='flat', bd=0, bg=style.bg_2, fg=style.txt_1,
-                          command=(lambda: self.correct(i)) if self.correct_response == i   # If this the correct button
-                          else (lambda: self.incorrect(self.correct_response))))            # If the button is incorrect
+                          command=(lambda: self.correct(i)) if self.correct_response == i  # If this the correct button
+                          else (lambda: self.incorrect(self.correct_response))))  # If the button is incorrect
 
             # Place the new butto with .grid()
             self.buttons[-1].grid(row=0, column=i, sticky='NESW', padx=(2 * (i != 0), 2 * (i != 2)))
@@ -213,7 +213,7 @@ class Card(tk.Frame):
                     math = math.replace("[%s]" % key, value[0])
 
                 # Insert the center dot character
-                math = math.replace("cdot", "•")
+                math = math.replace("cdot", "·")
 
                 # Add the formatted math to the cards body
                 self.add_math(math)
@@ -242,16 +242,22 @@ class Card(tk.Frame):
 
             # Add a tri button response type, give it the equation to generate answers and the correct button
             self.add_tri_button(ans, correct)
+        else:
+            self.add_single_button()
 
     # Method to be run if the correct button is clicked
     def correct(self, index=None):
+        print(index)
+
         # Remove the card from the queue using the correct flag
         self.queue.pop_card(self.queue.cards.index(self), correct=1)
 
         # If the button is multichoice show that the user was right by highlight all buttons green
-        if type(index) is not None:
+        if index is not None:
             for i in range(3):
                 self.buttons[i].config(fg=style.fg_cor, bg=style.bg_cor)
+        else:
+            self.input.config(fg=style.fg_cor, bg=style.bg_cor)
 
     # Method to be run if the wrong button is clicked
     def incorrect(self, index=None):
@@ -278,14 +284,18 @@ class Card(tk.Frame):
         return anim[1]
 
     # Curve relating animation time to offset
-    def out_curve(self, x):
+
+    @staticmethod
+    def out_curve(x):
         k = 100
         return k / max(1 - x, sys.float_info.min) - k, x >= 1
 
-    def in_curve(self,x):
+    @staticmethod
+    def in_curve(x):
         x = max(x, sys.float_info.min)
         k = 100
-        return -k / (2*x) + k, x >= 0.5
+        return -k / (2 * x) + k, x >= 0.5
+
 
 # Basic solver for symbol definition equations only containing random numbers
 def solve_equation(equation):
@@ -326,14 +336,14 @@ class Queue(BaseQueue):
         # Store a reference to the save manager
         self.save_manager = None
 
-        self.cards = []             # List of cards and buffers in the queue
-        self.animated = []          # List of widgets currently been animated
-        self.animate_in = []        # List of cards been animated as they come into the queue
+        self.cards = []  # List of cards and buffers in the queue
+        self.animated = []  # List of widgets currently been animated
+        self.animate_in = []  # List of cards been animated as they come into the queue
 
-        self.target = 100           # Target position of the queue ( Used for smooth scrolling )
-        self.position = 0           # Actual position of the queue ( Used for smooth scrolling )
-        self.length = 0             # Length of the queue in pixels ( Limit scrolling past ends of the queue )
-        self.padx = 80              # Amount of padding on the sides of the queue
+        self.target = 100  # Target position of the queue ( Used for smooth scrolling )
+        self.position = 0  # Actual position of the queue ( Used for smooth scrolling )
+        self.length = 0  # Length of the queue in pixels ( Limit scrolling past ends of the queue )
+        self.padx = 80  # Amount of padding on the sides of the queue
 
         # Create top and bottom buffers, these extend off the screen in both directions
         # to ensure that the edges of the queue are always hidden, this is particularly important
@@ -358,7 +368,7 @@ class Queue(BaseQueue):
 
     # Removes cards from the queue
     def pop_card(self, i, correct=1):
-        removed = self.cards[i]     # Reference to the card been removed
+        removed = self.cards[i]  # Reference to the card been removed
         removed.answered = correct  # Tell the card if it was answered correctly
 
         # If the card was correctly answered decrement the number of remaining cards of that format and save progress
@@ -446,7 +456,7 @@ class Queue(BaseQueue):
 
                 self.cards[index].destroy()
                 self.cards[index] = adding
-                adding.grid(column=0, row=index+1)
+                adding.grid(column=0, row=index + 1)
 
     def append_card(self, card, animated=False):
         if animated:
@@ -454,10 +464,9 @@ class Queue(BaseQueue):
             card.queue = self
             card.curve = card.in_curve
 
-            card.place(x=-500,y=0)
+            card.place(x=-500, y=0)
             card.update()
 
-            print(card.winfo_height())
             card.placeholder = self.Buffer(self.root, card.winfo_height())
             self.append_card(card.placeholder)
             card.placeholder.lower()
@@ -474,23 +483,23 @@ class Queue(BaseQueue):
 
 # Class for updating save file and holding various data
 class SaveManager:
-    # Load json data and course / section keys
-    def __init__(self, json_save, json_section, course, section):
-        self.json_save, self.json_section, self.course, self.section = \
-            json_save, json_section, course, section
+    # Load json data and module / section keys
+    def __init__(self, json_save, json_section, module, section):
+        self.json_save, self.json_section, self.module, self.section = \
+            json_save, json_section, module, section
 
     # Update a key for the current section by writing a new value or offsetting an existing one
     def update_key(self, key, value=None, offset=None):
         if type(value) is int:
-            self.json_save[self.course][self.section][key] = value
+            self.json_save[self.module][self.section][key] = value
         else:
-            self.json_save[self.course][self.section][key] += offset
+            self.json_save[self.module][self.section][key] += offset
 
     # Use the current save data to update the progress key for the current section
     def update_progress(self):
         total = sum(list(self.json_section["Queue"].values()))
-        progress = sum([self.json_save[self.course][self.section][key] for key in self.json_section["Queue"].keys()])
-        self.json_save[self.course][self.section]["Progress"] = (total-progress)/total
+        progress = sum([self.json_save[self.module][self.section][key] for key in self.json_section["Queue"].keys()])
+        self.json_save[self.module][self.section]["Progress"] = (total - progress) / total
 
     # Write the save data to a save.json file
     def update_save(self):
@@ -505,6 +514,3 @@ class SaveManager:
 
             # Remove any data after current location in file
             f.truncate()
-
-
-

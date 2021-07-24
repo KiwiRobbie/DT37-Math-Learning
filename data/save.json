@@ -1,27 +1,21 @@
 {
     "Complex Numbers": {
-        "Complex Arithmetic": {
+        "Basic Complex Arithmetic": {
             "Progress": 1.0,
-            "Addition": 0,
-            "Subtraction": 0,
-            "Multiplication": 0
+            "What are complex numbers?": 1,
+            "Addition Tutorial": 1,
+            "Addition": 3,
+            "Subtraction Tutorial": 1,
+            "Subtraction": 3
         },
-        "Complex Conjugate": {
-            "Progress": 0
+        "Complex Multiplication": {
+            "Progress": 0.0,
+            "How To Multiply Real And Complex Numbers": 1,
+            "Multiply Real And Complex Numbers": 3,
+            "How To Multiply Complex Numbers": 1,
+            "Multiply Two Complex Numbers": 3
         },
-        "Polar Form": {
-            "Progress": 0
-        },
-        "Upgrade ZFC Set Theory": {
-            "Progress": 0
-        },
-        "Prove Everything": {
-            "Progress": 0
-        },
-        "The Mathematics Of Time Travel": {
-            "Progress": 0
-        },
-        "Black Holes": {
+        "Complex Division": {
             "Progress": 0
         }
     },
@@ -30,6 +24,22 @@
             "Progress": 0
         },
         "Fermats Last Theorem": {
+            "Progress": 0
+        }
+    },
+    "Basics Of Set Theory": {
+        "Upgrade ZFC Set Theory": {
+            "Progress": 0
+        },
+        "Prove Everything": {
+            "Progress": 0
+        }
+    },
+    "Mathematics of Physics": {
+        "The Mathematics Of Time Travel": {
+            "Progress": 0
+        },
+        "Black Holes": {
             "Progress": 0
         }
     }

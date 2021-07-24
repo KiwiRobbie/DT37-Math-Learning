@@ -1,0 +1,17 @@
+{
+  "Module" : "Complex Numbers",
+  "Sections" : {
+    "Basic Complex Arithmetic":{
+      "File" : "Complex-Arithmetic.json",
+      "Description" : "Learn how to add and subtract complex numbers"
+    },
+    "Complex Multiplication" : {
+      "File" : "Complex-Multiplication.json",
+      "Description" : "Learn how to multiply complex numbers"
+    },
+    "Complex Division": {
+      "File" : "Complex-Division.json",
+      "Description" : "Learn how to divide complex numbers"
+    }
+ }
+}

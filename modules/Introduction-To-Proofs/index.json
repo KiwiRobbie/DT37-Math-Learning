@@ -1,5 +1,5 @@
 {
-  "Course" : "An Introduction To Proofs",
+  "Module" : "An Introduction To Proofs",
   "Sections" : {
     "Twin Prime Conjecture" : {
       "File" : "Complex-Arithmetic.json",

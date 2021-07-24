@@ -1,0 +1,56 @@
+{
+  "Queue": {
+    "What are complex numbers?": 1,
+    "Addition Tutorial": 1,
+    "Addition": 3,
+    "Subtraction Tutorial": 1,
+    "Subtraction": 3
+  },
+
+  "Questions" : {
+    "What are complex numbers?": {
+      "Question": [
+        ["<txt>","Complex Numbers are numbers with an extra imaginary component, they a written as one number plus another number times i. "],
+        ["<math>","z = 3+2i"],
+        ["<txt>","Here i is the imaginary unit: The square root of -1, this is a value that can't be defined with normal numbers. This makes i sort of like -1, it has the same size as 1 but represents a different direction."],
+        ["<txt>","If positive and negative numbers are going left and right i and -i are up and down, they are different directions."]
+
+      ],
+      "Answer" : [["Ok"]]
+    },
+    "Addition Tutorial": {
+      "Question": [["<txt>","All the normal mathematical operations can be performed on complex numbers."],
+        ["<txt>","If we think of numbers as directions then when we add complex numbers the up-down part can't affect the left-right part as they are in different directions."],
+        ["<txt>","Therefore we can add our two separate components individually to get a new number."],
+        ["<math>","p = 1+1i"],
+        ["<math>","q = 1-4i"],
+        ["<math>","z = p+q"],
+        ["<math>","z = (3+1) + (2-4)i"],
+        ["<math>","z = 4 - 2i"]
+      ],
+      "Answer" : [["Ok"]]
+    },
+    "Subtraction Tutorial": {
+      "Question": [["<txt>","Subtracting complex numbers is very similar to adding them, the only difference is that the components are subtracted separately instead of added."],
+        ["<math>","p = 2+4i"],
+        ["<math>","q = 3-1i"],
+        ["<math>","z = p-q"],
+        ["<math>","z = (2-3) + (4 + 1)i"],
+        ["<math>","z = -1 + 5i"]
+      ],
+      "Answer" : [["Ok"]]
+    },
+    "Addition": {
+      "Question": [["<def>" , "[a]=$randc{5}$"],["<def>" , "[b]=$randc{5}$"],["<txt>" , "What is the value of: "],["<math>" , "[a]+[b]"]],
+      "Answer": [["[a]","+","[b]"],["$randc{5}","*","randc{5}$"],["$randc{5}","*","randc{5}$"]]
+    },
+    "Subtraction": {
+      "Question": [["<def>" , "[a]=$randc{5}$"],["<def>" , "[b]=$randc{5}$"],["<txt>" , "What is the value of: "],["<math>" , "[a]-[b]"]],
+      "Answer": [["[a]","-","[b]"],["$randc{5}","*","randc{5}$"],["$randc{5}","*","randc{5}$"]]
+    },
+    "Multiplication": {
+      "Question": [["<def>" , "[a]=$randc{4}$"],["<def>" , "[b]=$randc{4}$"],["<txt>" , "What is the value of: "],["<math>" , "[a] cdot [b]"]],
+      "Answer": [["[a]","*","[b]"],["$randc{4}","*","randc{4}$"],["$randc{4}","*","randc{4}$"]]
+    }
+  }
+}
