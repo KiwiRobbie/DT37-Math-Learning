@@ -5,7 +5,6 @@ import tkinter as tk
 import sys
 import copy
 
-from Complex import Complex
 from EquationTree import EquationTree
 from Queue import Queue as BaseQueue
 from UI_Styles import DarkTheme
@@ -84,6 +83,8 @@ class Screen:
             t = time.time()
             delta_t = t - last_t
             last_t = t
+
+        self.main_queue.root.destroy()
 
 
 # Widget class for question cards, inherits from tk.Frame

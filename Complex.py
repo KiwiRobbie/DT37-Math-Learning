@@ -29,24 +29,16 @@ class Complex:
 
     # Multiply complex numbers
     def __mul__(self, other):
-        return Complex(self.real * other.real - self.imag * other.imag, self.real + other.imag + self.imag + other.real)
+        return Complex(self.real * other.real - self.imag * other.imag, self.real*other.imag + self.imag*other.real)
 
     # Convert to string for printing
     def __str__(self):
-        output = "%d%s%di" % (self.real, {-1: "-", 0: "+", 1: "+"}[math.copysign(1, self.imag)], abs(self.imag))
-        if output[0] == '0':
-            output = output[1:]
-
-        if output[0] == '+':
-            output = output[1:]
-
-        if output[-2] == '0':
-            output = output[:-3]
-
-        if output[-2:] == '1i':
-            output = output[:-2]+'i'
-
-        if output == '':
-            output = '0'
-
+        if self.real and self.imag:
+            output = "%d%s%di" % (self.real, {-1: "-", 0: "+", 1: "+"}[math.copysign(1, self.imag)], abs(self.imag))
+        elif self.real:
+            output = "%d" % self.real
+        elif self.imag:
+            output = "%d" % self.imag
+        else:
+            output = "0"
         return output

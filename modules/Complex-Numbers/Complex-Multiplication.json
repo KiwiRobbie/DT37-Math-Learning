@@ -2,40 +2,54 @@
   "Queue": {
     "How To Multiply Real And Complex Numbers": 1,
     "Multiply Real And Complex Numbers": 3,
-    "How To Multiply Complex Numbers": 1,
-    "Multiply Two Complex Numbers": 3
+    "How To Multiply A Complex And Exclusively Complex Numbers": 3,
+    "Multiply A Complex And Exclusively Complex Number": 1
   },
 
   "Questions" : {
     "How To Multiply Real And Complex Numbers": {
       "Question": [
-        ["<txt>",""],
-        ["<math>","z = 3+2i"],
-        ["<txt>","Here i is the imaginary unit: The square root of -1, this is a value that can't be defined with normal numbers. This makes i sort of like -1, it has the same size as 1 but represents a different direction."],
-        ["<txt>","If positive and negative numbers are going left and right i and -i are up and down, they are different directions."]
+        ["<txt>","When multiplying a real and complex number we can simply multiply both components of the complex number by the real number"],
+        ["<math>","p = 2+1i"],
+        ["<math>","n = 2"],
+        ["<math>","z = p cdot q"],
+        ["<math>","z = 2cdot(2 cdot 2)+(1 cdot 2)cdoti"]
+      ],
+      "Answer" : [["Ok"]]
+    },
+    "How To Multiply A Complex And Exclusively Complex Numbers": {
+      "Question": [["<txt>","With the same logic we can multiply a complex number with another complex number with no real component"],
+        ["<math>","p = -2+2i"],
+        ["<math>","q = 4i"],
+        ["<math>","z = pcdotq"],
+        ["<math>","z = (-2cdot4i) + (2cdot4i)i"],
+        ["<txt>","Because i is the square root of -1:"],
+        ["<math>","icdoti = -1"],
+        ["<math>","z = -8i - 8"]
+      ],
+      "Answer" : [["Ok"]]
+    },
 
+      "How To Multiply Complex Numbers": {
+      "Question": [["<txt>","With the same logic we can multiply a complex number with another complex number with no real component"],
+        ["<math>","p = -2+2i"],
+        ["<math>","q = 4i"],
+        ["<math>","z = pcdotq"],
+        ["<math>","z = (-2cdot4i) + (2cdot4i)i"],
+        ["<txt>","Because i is the square root of -1:"],
+        ["<math>","icdoti = -1"],
+        ["<math>","z = -8i - 8"]
       ],
       "Answer" : [["Ok"]]
     },
-    "How To Multiply Complex Numbers": {
-      "Question": [["<txt>","All the normal mathematical operations can be performed on complex numbers."],
-        ["<txt>","If we think of numbers as directions then when we add complex numbers the up-down part can't affect the left-right part as they are in different directions."],
-        ["<txt>","Therefore we can add our two separate components individually to get a new number."],
-        ["<math>","p = 1+1i"],
-        ["<math>","q = 1-4i"],
-        ["<math>","z = p+q"],
-        ["<math>","z = (3+1) + (2-4)i"],
-        ["<math>","z = 4 - 2i"]
-      ],
-      "Answer" : [["Ok"]]
-    },
+
     "Multiply Real And Complex Numbers": {
-      "Question": [["<def>" , ["[a]", ["$randc{-5,5,-5,5}$"]]],["<def>" , ["[b]", ["$randc{-5,5,-5,5}$"]]],["<txt>" , "What is the value of: "],["<math>" , "[a]+[b]"]],
-      "Answer": [["[a]","+","[b]"],["$randc{-5,5,-5,5}","+","$randc{-5,5,-5,5}$"],["$randc{-5,5,-5,5}","+","$randc{-5,5,-5,5}$"]]
+      "Question": [["<def>" , ["[a]", ["$randc{-5,5,-5,5}$"]]],["<def>" , ["[b]", ["$randc{-5,5,0,0}$"]]],["<txt>" , "What is the value of: "],["<math>" , "[a]cdot[b]"]],
+      "Answer": [["[a]","*","[b]"],["$randc{-5,5,-5,5}","*","$randc{-5,5,0,0}$"],["$randc{-5,5,-5,5}","*","$randc{-5,5,0,0}$"]]
     },
-    "Multiply Two Complex Numbers": {
-      "Question": [["<def>" , ["[a]", ["$randc{-5,5,-5,5}$"]]],["<def>" , ["[b]", ["$randc{-5,5,-5,5}$"]]],["<txt>" , "What is the value of: "],["<math>" , "[a]+[b]"]],
-      "Answer": [["[a]","+","[b]"],["$randc{-5,5,-5,5}","+","$randc{-5,5,-5,5}$"],["$randc{-5,5,-5,5}","+","$randc{-5,5,-5,5}$"]]
+    "Multiply A Complex And Exclusively Complex Number": {
+      "Question": [["<def>" , ["[a]", ["$randc{-5,5,-5,5}$"]]],["<def>" , ["[b]", ["$randc{-5,5,-5,5}$"]]],["<txt>" , "What is the value of: "],["<math>" , "[a]cdot[b]"]],
+      "Answer": [["[a]","*","[b]"],["$randc{-5,5,-5,5}","*","$randc{0,0,-5,5}$"],["$randc{-5,5,-5,5}","*","$randc{0,0,-5,5}$"]]
     }
   }
 }

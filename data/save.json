@@ -1,19 +1,15 @@
 {
     "Complex Numbers": {
         "Basic Complex Arithmetic": {
-            "Progress": 1.0,
-            "What are complex numbers?": 0,
-            "Addition Tutorial": 0,
-            "Addition": 0,
-            "Subtraction Tutorial": 0,
-            "Subtraction": 0
+            "Progress": 0.0,
+            "What are complex numbers?": 1,
+            "Addition Tutorial": 1,
+            "Addition": 3,
+            "Subtraction Tutorial": 1,
+            "Subtraction": 3
         },
         "Complex Multiplication": {
-            "Progress": 0.0,
-            "How To Multiply Real And Complex Numbers": 1,
-            "Multiply Real And Complex Numbers": 3,
-            "How To Multiply Complex Numbers": 1,
-            "Multiply Two Complex Numbers": 3
+            "Progress": 0
         },
         "Complex Division": {
             "Progress": 0
