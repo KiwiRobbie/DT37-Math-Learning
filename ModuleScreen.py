@@ -112,8 +112,8 @@ class ProgressBar(tk.Frame):
         self.grid_propagate(False)
 
         if progress > 0:
-            self.compleated = tk.Frame(self, bg=style.bg_cor, height=2)
-            self.compleated.grid(row=0, column=0, sticky="NSEW")
+            self.completed = tk.Frame(self, bg=style.bg_cor, height=2)
+            self.completed.grid(row=0, column=0, sticky="NSEW")
         if progress < 1:
             self.remaining = tk.Frame(self, bg=style.bg_err, height=2)
             self.remaining.grid(row=0, column=1, sticky="NSEW")
@@ -244,8 +244,8 @@ class ModuleWidget(tk.Frame):
             self.button.grid(row=0, column=0, sticky="NSEW")
 
         else:
-            # Button holding the compleated module text
-            self.button = tk.Button(self.button_frame, text="Compleated",
+            # Button holding the completed module text
+            self.button = tk.Button(self.button_frame, text="Completed",
                                     bg=style.bg_cor, fg=style.txt_1,
                                     font=style.font_button, bd=0)
 

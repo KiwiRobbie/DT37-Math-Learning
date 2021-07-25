@@ -25,6 +25,7 @@ class WindowDark(tk.Tk):
         super().__init__()
         self.geometry('{}x{}+{}+{}'.format(w, h + 20, int((1920 - w) / 2), int((1080 - h - 20) / 2)))
         self.overrideredirect(True)
+        self.wm_attributes("-topmost", 1)
         self.config(bg=colour.bg_1)
         self.last_x = 0
         self.last_y = 0

@@ -10,10 +10,12 @@
   "Questions" : {
     "What are complex numbers?": {
       "Question": [
-        ["<txt>","Complex Numbers are numbers with an extra imaginary component, they a written as one number plus another number times i. "],
+        ["<txt>","This is an example of a complex number:"],
         ["<math>","z = 3+2i"],
-        ["<txt>","Here i is the imaginary unit: The square root of -1, this is a value that can't be defined with normal numbers. This makes i sort of like -1, it has the same size as 1 but represents a different direction."],
-        ["<txt>","If positive and negative numbers are going left and right i and -i are up and down, they are different directions."]
+        ["<txt>","Complex numbers are written in two parts, first a familiar regular number and secondly an imaginary number."],
+        ["<txt>","So what is an imaginary number? Well it is defined as i times another number, i was created by mathematicians to represent the square root of -1, this is a value that can't be shown with normal numbers."],
+        ["<txt>","When we think about the number line, 1 represents a single step in the positive direction ( This can be thought of a moving to the right ). Multiplying 1 by another number represents that many steps to the right. On the regular number line we also have -1, multiplying a number by -1 represents that many steps in the negative direction, typically to the left."],
+        ["<txt>","Imaginary numbers exit on their own number line, this is "]
 
       ],
       "Answer" : [["Ok"]]
