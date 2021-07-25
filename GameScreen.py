@@ -4,7 +4,6 @@ import time
 import tkinter as tk
 import sys
 import copy
-
 from EquationTree import EquationTree
 from Queue import Queue as BaseQueue
 from UI_Styles import DarkTheme
@@ -157,6 +156,8 @@ class Card(tk.Frame):
 
         # Generate responses from the equations for each response
         self.responses = [create_response(data, self.symbols) for data in answers]
+        while len([str(r) for r in self.responses]) != len(set([str(r) for r in self.responses])):
+            self.responses = [create_response(data, self.symbols) for data in answers]
 
         # Save the index of the correct response
         self.correct_response = correct
@@ -253,17 +254,15 @@ class Card(tk.Frame):
 
     # Method to be run if the correct button is clicked
     def correct(self, index=None):
-        print(index)
-
         # Remove the card from the queue using the correct flag
         self.queue.pop_card(self.queue.cards.index(self), correct=1)
 
         # If the button is multichoice show that the user was right by highlight all buttons green
         if index is not None:
             for i in range(3):
-                self.buttons[i].config(fg=style.fg_cor, bg=style.bg_cor)
+                self.buttons[i].config(fg=style.fg_cor, bg=style.bg_cor, command=None)
         else:
-            self.input.config(fg=style.fg_cor, bg=style.bg_cor)
+            self.input.config(fg=style.fg_cor, bg=style.bg_cor, command=None)
 
     # Method to be run if the wrong button is clicked
     def incorrect(self, index=None):
@@ -274,7 +273,8 @@ class Card(tk.Frame):
         if type(index) is not None:
             for i in range(3):
                 self.buttons[i].config(fg=(style.fg_cor if i == index else style.fg_err),
-                                       bg=(style.bg_cor if i == index else style.bg_err))
+                                       bg=(style.bg_cor if i == index else style.bg_err),
+                                       command=None)
 
     # Method to animate the card moving onscreen
     def animate(self, delta_t):
@@ -404,6 +404,7 @@ class Queue(BaseQueue):
         # Call the animate method
         self.animate(delta_t)
 
+        # If nothing is left on the screen return False so that we can exit the loop
         return len(self.cards) or len(self.animated) or len(self.animate_in)
 
     # Apply animations
@@ -454,26 +455,31 @@ class Queue(BaseQueue):
                 self.cards[index] = adding
                 adding.grid(column=0, row=index + 1)
 
+    # Override the inherited method for adding  cards to allow animation
     def append_card(self, card, animated=False):
         if animated:
             # Add a reference to the queue in the card
             card.queue = self
             card.curve = card.in_curve
 
+            # Place the card off screen so its not visible before the animation starts
             card.place(x=-500, y=0)
             card.update()
 
+            # Create a placeholder buffer where the card will appear
             card.placeholder = self.Buffer(self.root, card.winfo_height())
             self.append_card(card.placeholder)
             card.placeholder.lower()
             card.placeholder.update()
 
+            # Give the card the location it is animating too
             card.y = card.placeholder.winfo_y()
 
             # Append the card to the list of cards in the queue
             self.animate_in.append(card)
 
         else:
+            # If we aren't animating the entrance call the inherited method instead
             super().append_card(card)
 
 

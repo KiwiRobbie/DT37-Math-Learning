@@ -8,10 +8,6 @@
     "Complex Multiplication" : {
       "File" : "Complex-Multiplication.json",
       "Description" : "Learn how to multiply complex numbers"
-    },
-    "Complex Division": {
-      "File" : "Complex-Division.json",
-      "Description" : "Learn how to divide complex numbers"
     }
  }
 }

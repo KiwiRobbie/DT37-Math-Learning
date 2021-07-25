@@ -7,10 +7,13 @@ root = WindowDark(480, 700)
 
 # Main Game Loop: Load main menu -> user selects level -> load level -> level closed / compleated -> Load main menu
 while True:
-    # Create a menu screen and enter the main loop awaiting the users selection
-    menu_screen = ModuleScreen.Screen(root)
-    module = menu_screen.main_loop()
 
-    # Create a game screen, specify the selected module
-    game_screen = GameScreen.Screen(root, module)  # menu_screen.game_screen
+    # Keep returning to the menu screen until a module is returned
+    module = None
+    while not module:
+        menu_screen = ModuleScreen.Screen(root)
+        module = menu_screen.main_loop()
+
+    # Create a game screen and start its mainloop
+    game_screen = GameScreen.Screen(root, module)
     game_screen.main_loop()

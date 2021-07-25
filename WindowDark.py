@@ -12,7 +12,7 @@ Class for creating windows that use a custom title bar and darktheme
 
 # WindowDark is an extension of the tkinter.Tk class
 import tkinter as tk
-
+import sys
 from UI_Styles import DarkTheme
 
 colour = DarkTheme()
@@ -74,13 +74,13 @@ class WindowDark(tk.Tk):
         self.last_x = event.x_root
         self.last_y = event.y_root
 
+    # Set the title shown on the title bar
     def set_title(self, title):
         self.title.config(text=title)
 
     # Function to quit the program
     def quit(self):
         self.destroy()
-
 
 # Run the main script if we try to run the this file instead
 if (__name__ == '__main__'):

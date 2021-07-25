@@ -19,7 +19,7 @@ class Screen:
 
         # Store a reference to the programs main window
         self.window = root
-        self.window .set_title("MLG - Module Menu")
+        self.window.set_title("MLG - Module Menu")
 
         # Create a root frame to hold all elements in the screen
         self.root = tk.Frame(root, bg=style.bg_3, width=480, height=700)
@@ -79,6 +79,11 @@ class Screen:
             t = time.time()
             delta_t = t - last_t
             last_t = t
+
+        with open("data/save.json", 'w') as f:
+            f.seek(0)
+            json.dump(self.save_json, f, indent=4)
+            f.truncate()
 
         # Once loop exits return the users selected module
         return self.module
@@ -173,6 +178,8 @@ class ModuleWidget(tk.Frame):
                 self.section_titles.append(section)
                 self.section_descriptions.append(self.json["Sections"][self.section_titles[-1]]["Description"])
 
+        self.save_json = save_json
+
         # Create and configure a frame to hold the title label
         self.title_frame = tk.Frame(self, bg=style.bg_2, width=360, height=40)
         self.title_frame.grid(row=0, column=0, sticky='NEW', pady=2, columnspan=2)
@@ -186,8 +193,8 @@ class ModuleWidget(tk.Frame):
         self.title_label.grid(row=0, column=0, sticky="NSEW", pady=4)
 
         # Load the save json specific to the module if it exists
-        if self.title in save_json:
-            module_save_json = save_json[self.title]
+        if self.title in self.save_json:
+            module_save_json = self.save_json[self.title]
         else:
             module_save_json = {}
 
@@ -207,15 +214,15 @@ class ModuleWidget(tk.Frame):
                                    padx=(2 * (i % 2), 2 * (1 - i % 2)))
 
             # Update overall progress for the module using the progress in the new section
-            self.overall_progress += self.sections[-1].progress/len(self.section_titles)
+            self.overall_progress += self.sections[-1].progress / len(self.section_titles)
 
         # If an odd number of sections were added to the section list
-        if len(self.sections)%2:
+        if len(self.sections) % 2:
             # Find the index of the new section to be added
-            i=len(self.section_titles)
+            i = len(self.section_titles)
 
             # Using the index place the section in the 2 column list to remove the gap in the right column
-            self.sections.append(self.Section(self, blank = True))
+            self.sections.append(self.Section(self, blank=True))
             self.sections[-1].grid(row=(i // 2) + 1, column=i % 2, sticky='NSEW', pady=2,
                                    padx=(2 * (i % 2), 2 * (1 - i % 2)))
 
@@ -228,11 +235,36 @@ class ModuleWidget(tk.Frame):
 
         # Add a button to the button frame, use begin or resume based on progress and a method to end the screen
         # and return the module of the module widget that the button was added to
-        self.button = tk.Button(self.button_frame,
-                                text="Resume Section" if self.overall_progress > 0 else "Begin Section", bg=style.bg_2,
-                                fg=style.txt_1, font=style.font_button, bd=0,
-                                command=lambda: return_module(self.directory))
-        self.button.grid(row=0, column=0, sticky="NSEW")
+        if self.overall_progress < 1:
+            self.button = tk.Button(self.button_frame,
+                                    text="Resume Section" if self.overall_progress > 0 else "Begin Section",
+                                    bg=style.bg_2,
+                                    fg=style.txt_1, font=style.font_button, bd=0,
+                                    command=lambda: return_module(self.directory))
+            self.button.grid(row=0, column=0, sticky="NSEW")
+
+        else:
+            # Button holding the compleated module text
+            self.button = tk.Button(self.button_frame, text="Compleated",
+                                    bg=style.bg_cor, fg=style.txt_1,
+                                    font=style.font_button, bd=0)
+
+            # Button to reset the save for this module
+            reset_cmd = lambda: self.button.config(text="Reset?", bg=style.bg_err,
+                                                   command=lambda: self.reset(self.title, return_module))
+            self.reset_button = tk.Button(self.button_frame, text="↺",
+                                          bg=style.bg_cor, fg=style.txt_1,
+                                          font=style.font_button, bd=0,
+                                          command=reset_cmd)
+
+            # Place buttons
+            self.button.grid(row=0, column=0, sticky="NSEW")
+            self.reset_button.grid(row=0, column=1, sticky="NSEW")
 
         # Update the save_json for the module
-        save_json[self.title] = module_save_json
+        self.save_json[self.title] = module_save_json
+
+    # Reset the module
+    def reset(self, module, return_module):
+        self.save_json.pop(self.title)
+        return_module(None)
