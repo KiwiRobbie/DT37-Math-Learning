@@ -13,24 +13,28 @@
         ["<txt>","This is an example of a complex number:"],
         ["<math>","z = 3+2i"],
         ["<txt>","Complex numbers are written in two parts, first a familiar regular number and secondly an imaginary number."],
-        ["<txt>","So what is an imaginary number? Well it is defined as i times another number, i was created by mathematicians to represent the square root of -1, this is a value that can't be shown with normal numbers."],
+        ["<txt>","So what is an imaginary number? Well it is defined as i times another number. i was created by mathematicians to represent the square root of -1, this is a value that can't be shown with normal numbers."],
         ["<txt>","When we think about the number line, 1 represents a single step in the positive direction ( This can be thought of a moving to the right ). Multiplying 1 by another number represents that many steps to the right. On the regular number line we also have -1, multiplying a number by -1 represents that many steps in the negative direction, typically to the left."],
-        ["<txt>","Imaginary numbers exit on their own number line, this is "]
+        ["<txt>","Imaginary numbers exist on their own number line, this is commonly shown as a vertical number line, combining the normal number line with our new imaginary number line we have two positions, one horizontal and one vertical. This makes complex numbers like coordinates on a map where the real part is the horizontal position and the imaginary number is the vertical position."]
 
       ],
-      "Answer" : [["Ok"]]
+      "Answer" : [["Ok"]],
+      "Permanent": true
     },
     "Addition Tutorial": {
-      "Question": [["<txt>","All the normal mathematical operations can be performed on complex numbers."],
-        ["<txt>","If we think of numbers as directions then when we add complex numbers the up-down part can't affect the left-right part as they are in different directions."],
-        ["<txt>","Therefore we can add our two separate components individually to get a new number."],
+      "Question": [["<txt>","Just like regular numbers we can add and subtract complex numbers"],
+        ["<txt>","If we have two complex numbers: "],
         ["<math>","p = 1+1i"],
-        ["<math>","q = 1-4i"],
+        ["<math>","q = 1-2i"],
+        ["<txt>","Then p is 1 step to the right and 1 step up, q is 1 step right and 2 steps down. If we make a new number with the value p+q:"],
         ["<math>","z = p+q"],
-        ["<math>","z = (3+1) + (2-4)i"],
-        ["<math>","z = 4 - 2i"]
+        ["<txt>","Then the value of z represent 2 steps right, 1 step up and then finally 2 steps down. This gives a final position of 2 steps right and 1 step down. As a complex number:"],
+        ["<math>","z = (1+1) + (1-2)i"],
+        ["<math>","z = 2 - i"],
+        ["<txt>","Mathematically speaking, to find z we just add the numbers in each part of our complex number (The real part of z is the real part of p + the real part of q)."]
       ],
-      "Answer" : [["Ok"]]
+      "Answer" : [["Ok"]],
+      "Permanent": true
     },
     "Subtraction Tutorial": {
       "Question": [["<txt>","Subtracting complex numbers is very similar to adding them, the only difference is that the components are subtracted separately instead of added."],
@@ -40,15 +44,19 @@
         ["<math>","z = (2-3) + (4 + 1)i"],
         ["<math>","z = -1 + 5i"]
       ],
-      "Answer" : [["Ok"]]
+      "Answer" : [["Ok"]],
+      "Permanent": true
     },
     "Addition": {
       "Question": [["<def>" , ["[a]", ["$randc{-5,5,-5,5}$"]]],["<def>" , ["[b]", ["$randc{-5,5,-5,5}$"]]],["<txt>" , "What is the value of: "],["<math>" , "[a]+[b]"]],
-      "Answer": [["[a]","+","[b]"],["$randc{-5,5,-5,5}","+","$randc{-5,5,-5,5}$"],["$randc{-5,5,-5,5}","+","$randc{-5,5,-5,5}$"]]
+      "Answer": [["[a]","+","[b]"],["$randc{-5,5,-5,5}","+","$randc{-5,5,-5,5}$"],["$randc{-5,5,-5,5}","+","$randc{-5,5,-5,5}$"]],
+      "Permanent": false
+
     },
     "Subtraction": {
       "Question": [["<def>" , ["[a]", ["$randc{-5,5,-5,5}$"]]],["<def>" , ["[b]", ["$randc{-5,5,-5,5}$"]]],["<txt>" , "What is the value of: "],["<math>" , "[a]-[b]"]],
-      "Answer": [["[a]","-","[b]"],["$randc{-5,5,-5,5}","-","$randc{-5,5,-5,5}$"],["$randc{-5,5,-5,5}","-","$randc{-5,5,-5,5}$"]]
+      "Answer": [["[a]","-","[b]"],["$randc{-5,5,-5,5}","-","$randc{-5,5,-5,5}$"],["$randc{-5,5,-5,5}","-","$randc{-5,5,-5,5}$"]],
+      "Permanent": false
     }
   }
 }

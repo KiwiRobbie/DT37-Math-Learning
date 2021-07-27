@@ -324,6 +324,14 @@ class Queue(BaseQueue):
             # Return the state of the animation:
             return self.t >= 0.2  # False: Running   True: Complete
 
+    class CardHolder(tk.Frame):
+        def __init__(self, root):
+            super().__init__(root, height=200, bg='red')
+            self.grid(row=0, column=0, sticky="NSEW")
+
+            self.label = tk.Frame(self,width=320,height=10,bg='green')
+            self.label.grid(column=0)
+
     # Override the default __init__ of the base queue
     def __init__(self, root) -> None:
         # Create a root widget for the queue
@@ -336,17 +344,21 @@ class Queue(BaseQueue):
         self.animated = []  # List of widgets currently been animated
         self.animate_in = []  # List of cards been animated as they come into the queue
 
-        self.target = 100  # Target position of the queue ( Used for smooth scrolling )
+        self.target = 0  # Target position of the queue ( Used for smooth scrolling )
         self.position = 0  # Actual position of the queue ( Used for smooth scrolling )
         self.length = 0  # Length of the queue in pixels ( Limit scrolling past ends of the queue )
         self.padx = 80  # Amount of padding on the sides of the queue
+        self.offset = 10
+
+        # Holds old tutorials above the screen so that the user can still access them
+        self.tutorial_holder = self.CardHolder(self.root)
+        self.tutorial_holder.grid(row=0, column=0)
+
+        self.top_buffer = self.tutorial_holder
 
         # Create top and bottom buffers, these extend off the screen in both directions
         # to ensure that the edges of the queue are always hidden, this is particularly important
         # for animated cards as they can't be drawn outside of the queue and would disappear early
-        self.top_buffer = self.Buffer(self.root, height=200)
-        self.top_buffer.grid(row=0, column=0)
-
         self.bottom_buffer = self.Buffer(self.root, height=1000)
         self.bottom_buffer.grid(row=1000, column=0)
 
@@ -354,9 +366,6 @@ class Queue(BaseQueue):
         self.root.bind_all('<MouseWheel>', self.scroll_handler)
         self.root.bind_all('<Button-5>', self.scroll_handler)
         self.root.bind_all('<Button-4>', self.scroll_handler)
-
-        # Place the queue object
-        self.root.place(x=0, y=self.position)
 
         # Ensure everything is drawn in the correct order
         self.root.lower()
@@ -434,12 +443,6 @@ class Queue(BaseQueue):
                 else:
                     # If the card isn't part of the queue remove it from the list of animated widgets and destroy it
                     self.animated.pop(i).destroy()
-
-                # Update the queue object so that changes take effect
-                self.root.update()
-
-                # Recalculate the length of the queue
-                self.length = max(700, self.root.winfo_height() - 1100)
 
         for i, widget in enumerate(self.animate_in):
             if widget.animate(delta_t):

@@ -27,13 +27,11 @@ class Queue:
         self.cards = []
 
         # Properties of the queue
-        self.target = 100    # Target position of the queue ( Used for smooth scrolling )
+        self.target = 0    # Target position of the queue ( Used for smooth scrolling )
         self.position = 0  # Actual position of the queue ( Used for smooth scrolling )
         self.length = 0      # Length of the queue in pixels ( Limit scrolling past ends of the queue )
         self.padx = 60       # Amount of padding on the sides of the queue
-
-        # Place the queue root frame
-        self.root.place(x=0, y=self.position)
+        self.offset = 0
 
         # Create top and bottom buffers, these extend off the screen in both directions
         # These ensure that the edges of the queue are always hidden
@@ -78,12 +76,12 @@ class Queue:
         self.cards[-1].grid(row=len(self.cards), column=0, pady=15, padx=self.padx)
         self.root.update()
 
-        # Find the length of the cards in the queue ( Ignoring buffers )
-        # Clamp the length so that it is not less that the screen length
-        self.length = max(700, self.root.winfo_height() - 1100)
-
     # Update the queue, all animations are scaled by the amount of time frames are taking
     def update(self, delta_t):
+        # Find the length of the cards in the queue ( Ignoring buffers )
+        # Clamp the length so that it is not less that the screen length
+        self.length = max(700, self.root.winfo_height() + self.offset - self.bottom_buffer.winfo_height() - self.top_buffer.winfo_height())
+
         # Smoothly clamp the target position by moving it back if it is above or below the screen
         self.target += max((700 - self.target - self.length) * delta_t * 10, 0)
         self.target += min((- self.target) * delta_t * 10, 0)
@@ -92,4 +90,4 @@ class Queue:
         self.position += (self.target - self.position) * min(delta_t * 5.0, 1.0)
 
         # Update the position of the widget
-        self.root.place(x=0, y=self.position - 140)
+        self.root.place(x=0, y=self.position + self.offset - self.top_buffer.winfo_height())
