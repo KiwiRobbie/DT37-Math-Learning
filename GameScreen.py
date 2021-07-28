@@ -7,6 +7,7 @@ import copy
 from EquationTree import EquationTree
 from Queue import Queue as BaseQueue
 from UI_Styles import DarkTheme
+import math
 
 style = DarkTheme()
 
@@ -35,6 +36,9 @@ class Screen:
 
         # Create new Queue object for the screen
         self.main_queue = Queue(root.root)
+        self.help_queue = Queue(root.root)
+
+        self.active_queue = self.main_queue
 
         # Save the directory of the module index.json
         self.directory = directory
@@ -62,6 +66,8 @@ class Screen:
         # Attach the save manager object to the main queue so it can access it too
         self.main_queue.save_manager = self.save_manager
 
+        self.nav_bar = NavBar(self)
+
         # Used to exit the main loop of the screen
         self.running = True
 
@@ -75,7 +81,8 @@ class Screen:
         # TODO: Add an exit condition
         while self.running:
             # Update the queue and the main window of the program
-            self.running = self.main_queue.update(delta_t)
+            self.running = self.active_queue.update(delta_t)
+            self.nav_bar.update(delta_t)
             self.window.update()
 
             # Update the timing information
@@ -84,7 +91,7 @@ class Screen:
             last_t = t
 
         self.main_queue.root.destroy()
-
+        self.nav_bar.destroy()
 
 # Widget class for question cards, inherits from tk.Frame
 class Card(tk.Frame):
@@ -303,6 +310,52 @@ class Card(tk.Frame):
         return -k / (2 * x) + k, x >= 0.5
 
 
+class NavBar(tk.Frame):
+    def __init__(self, screen):
+        self.screen=screen
+        super().__init__(screen.window.root, width=320, height=40, bg=style.bg_3)
+        self.grid_propagate(False)
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+        self.rowconfigure(0,weight=1)
+
+        self.menu_frame  =tk.Frame(self, bg=style.bg_2)
+        self.menu_frame.grid(row=0, column=0, sticky="NSEW", padx=(0,2))
+        self.menu_frame.columnconfigure(0, weight=1)
+        self.menu_frame.rowconfigure(0,weight=1)
+
+        self.menu_button = tk.Button(self.menu_frame, text="Menu", bg=style.bg_2, fg=style.fg_1, bd=0, font=style.font_button, command=self.return_menu)
+        self.menu_button.grid(sticky="NSEW")
+
+        self.help_frame  = tk.Frame(self, bg=style.bg_2)
+        self.help_frame.grid(row=0, column=1, sticky="NSEW", padx=(2,0))
+        self.help_frame.columnconfigure(0, weight=1)
+        self.help_frame.rowconfigure(0,weight=1)
+
+        self.help_button = tk.Button(self.help_frame, text="Help", bg=style.bg_2, fg=style.fg_1, bd=0, font=style.font_button)
+        self.help_button.grid(sticky="NSEW")
+
+    @staticmethod
+    def smoothmax(alpha, v1, v2):
+        return math.log( pow(alpha,v1) + pow(alpha,v2),alpha )
+
+    def switch_queue(self):
+        self.screen.active_queue.place_forget()
+        self.screen.active_queue = {self.screen.main_queue : self.screen.help_queue,
+                                    self.screen.help_queue : self.screen.main_queue}[self.screen.active_screen]
+
+    def update(self,delta_t):
+        if self.screen.main_queue.root.winfo_exists():
+            y=self.screen.main_queue.position
+        else:
+            y=self.screen.help_queue.position
+
+        y=self.smoothmax(0.9,20+y,20)
+        self.place(y=y, x=80)
+
+    def return_menu(self):
+        self.screen.running=False
+
 # Extension of the base queue class
 class Queue(BaseQueue):
     # Extension of the base buffer subclass
@@ -324,14 +377,6 @@ class Queue(BaseQueue):
             # Return the state of the animation:
             return self.t >= 0.2  # False: Running   True: Complete
 
-    class CardHolder(tk.Frame):
-        def __init__(self, root):
-            super().__init__(root, height=200, bg='red')
-            self.grid(row=0, column=0, sticky="NSEW")
-
-            self.label = tk.Frame(self,width=320,height=10,bg='green')
-            self.label.grid(column=0)
-
     # Override the default __init__ of the base queue
     def __init__(self, root) -> None:
         # Create a root widget for the queue
@@ -348,13 +393,13 @@ class Queue(BaseQueue):
         self.position = 0  # Actual position of the queue ( Used for smooth scrolling )
         self.length = 0  # Length of the queue in pixels ( Limit scrolling past ends of the queue )
         self.padx = 80  # Amount of padding on the sides of the queue
-        self.offset = 10
+        self.offset = 75
 
         # Holds old tutorials above the screen so that the user can still access them
-        self.tutorial_holder = self.CardHolder(self.root)
-        self.tutorial_holder.grid(row=0, column=0)
+        self.top_buffer = self.Buffer(self.root, height=200)
+        self.top_buffer.grid(row=0, column=0)
 
-        self.top_buffer = self.tutorial_holder
+        self.top_buffer = self.top_buffer
 
         # Create top and bottom buffers, these extend off the screen in both directions
         # to ensure that the edges of the queue are always hidden, this is particularly important
