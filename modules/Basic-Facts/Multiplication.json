@@ -5,7 +5,7 @@
 
   "Questions" : {
     "Multiplication": {
-      "Question": [["<sdef>" , ["[a]", ["$randc{-12,12,0,0}$"]]],["<sdef>" , ["[b]", ["$randc{-12,12,0,0}$"]]],["<math>" , "{a} cdot {b}"]],
+      "Question": [["<sdef>" , ["[a]", "$randc{-12,12,0,0}$"]],["<sdef>" , ["[b]", "$randc{-12,12,0,0}$"]],["<math>" , "{a} cdot {b}"]],
       "Answer": [["[a]","*","[b]"],["$randc{-12,12,0,0}","*","$randc{-12,12,0,0}$"],["$randc{-12,12,0,0}","*","$randc{-12,12,0,0}$"]],
       "Permanent": false
     }

@@ -1,19 +1,4 @@
 {
-    "Basic Facts": {
-        "Addition": {
-            "Progress": 0.0,
-            "Addition": 6
-        },
-        "Subtraction": {
-            "Progress": 0
-        },
-        "Multiplication": {
-            "Progress": 0
-        },
-        "Division": {
-            "Progress": 0
-        }
-    },
     "Complex Numbers": {
         "Basic Complex Arithmetic": {
             "Progress": 0.0,
@@ -24,6 +9,21 @@
             "Subtraction": 3
         },
         "Complex Multiplication": {
+            "Progress": 0
+        }
+    },
+    "Basic Facts": {
+        "Addition": {
+            "Progress": 0.6666666666666666,
+            "Addition": 2
+        },
+        "Subtraction": {
+            "Progress": 0
+        },
+        "Multiplication": {
+            "Progress": 0
+        },
+        "Division": {
             "Progress": 0
         }
     }

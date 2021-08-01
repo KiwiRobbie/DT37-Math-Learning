@@ -4,11 +4,11 @@ import time
 import tkinter as tk
 import sys
 import copy
-from typing import Dict, Any
 
 from EquationTree import EquationTree
 from Queue import Queue as BaseQueue
 from UI_Styles import DarkTheme
+from SaveManager import SaveManager
 import math
 
 style = DarkTheme()
@@ -65,7 +65,7 @@ class Screen:
 
         # Add tutorial cards to help section
         for question in self.json_section["Queue"]:
-            data = self.json_section["Questions"][question]
+            data = copy.copy(self.json_section["Questions"][question])
             data.pop("Answer", None)
             if data["Permanent"]:
                 new_card = Card(self.help_queue.root)
@@ -79,7 +79,6 @@ class Screen:
         # Attach the save manager object to the main queue so it can access it too
         self.main_queue.save_manager = self.save_manager
         self.nav_buttons = NavButtons(self)
-
 
         # Used to exit the main loop of the screen
         self.running = True
@@ -230,7 +229,6 @@ class Card(tk.Frame):
 
             # If it is math add math to the cards body
             elif "<math>" in txt[0]:
-                print("Math")
                 # Extract the math section and replace the symbols with their corresponding letters
                 math = txt[1]
                 for key, value in self.symbols.items():
@@ -359,7 +357,7 @@ class NavButtons:
                                          font=style.font_button, command=self.switch_queue)
             self.help_button.grid(sticky="NSEW")
         else:
-            self.help_frame=None
+            self.help_frame = None
 
     @staticmethod
     def smooth_max(alpha, a, b):
@@ -385,12 +383,12 @@ class NavButtons:
 
         y = self.screen.active_queue.position
 
-        y = self.smooth_max(-10, 1 + math.copysign(1, y) * pow(abs(y)*10, 0.5), 0)+12
+        y = self.smooth_max(-10, 1 + math.copysign(1, y) * pow(abs(y) * 10, 0.5), 0) + 12
         self.menu_frame.place(y=y, x=20)
         self.menu_frame.lift()
 
         if self.help_frame:
-            self.help_frame.place(y=y, x=460-40)
+            self.help_frame.place(y=y, x=460 - 40)
             self.help_frame.lift()
 
     def destroy(self):
@@ -572,38 +570,3 @@ class Queue(BaseQueue):
         else:
             # If we aren't animating the entrance call the inherited method instead
             super().append_card(card)
-
-
-# Class for updating save file and holding various data
-class SaveManager:
-    # Load json data and module / section keys
-    def __init__(self, json_save, json_section, module, section):
-        self.json_save, self.json_section, self.module, self.section = \
-            json_save, json_section, module, section
-
-    # Update a key for the current section by writing a new value or offsetting an existing one
-    def update_key(self, key, value=None, offset=None):
-        if type(value) is int:
-            self.json_save[self.module][self.section][key] = value
-        else:
-            self.json_save[self.module][self.section][key] += offset
-
-    # Use the current save data to update the progress key for the current section
-    def update_progress(self):
-        total = sum(list(self.json_section["Queue"].values()))
-        progress = sum([self.json_save[self.module][self.section][key] for key in self.json_section["Queue"].keys()])
-        self.json_save[self.module][self.section]["Progress"] = (total - progress) / total
-
-    # Write the save data to a save.json file
-    def update_save(self):
-        # Update the progress for the section before writing
-        self.update_progress()
-        with open("data/save.json", "w") as f:
-            # Return to the start of the file
-            f.seek(0)
-
-            # Dump json data
-            json.dump(self.json_save, f, indent=4)
-
-            # Remove any data after current location in file
-            f.truncate()
