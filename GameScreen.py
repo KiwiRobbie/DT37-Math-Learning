@@ -33,12 +33,15 @@ class Screen:
         self.window = root
         self.module_title = self.json_index["Module"]
         self.window.set_title("MLG - %s (%s)" % (self.module_title, self.section))
+        self.nav_buttons = NavButtons(self)
 
         # Create new Queue object for the screen
         self.main_queue = Queue(root.root)
         self.help_queue = Queue(root.root)
-
         self.active_queue = self.main_queue
+
+        # Bind the scroll event to the main queue
+        self.active_queue.bind_handlers()
 
         # Save the directory of the module index.json
         self.directory = directory
@@ -66,8 +69,6 @@ class Screen:
         # Attach the save manager object to the main queue so it can access it too
         self.main_queue.save_manager = self.save_manager
 
-        self.nav_bar = NavBar(self)
-
         # Used to exit the main loop of the screen
         self.running = True
 
@@ -78,11 +79,10 @@ class Screen:
         delta_t = 0
         last_t = t
 
-        # TODO: Add an exit condition
         while self.running:
             # Update the queue and the main window of the program
             self.running = self.active_queue.update(delta_t)
-            self.nav_bar.update(delta_t)
+            self.nav_buttons.update(delta_t)
             self.window.update()
 
             # Update the timing information
@@ -91,7 +91,8 @@ class Screen:
             last_t = t
 
         self.main_queue.root.destroy()
-        self.nav_bar.destroy()
+        self.nav_buttons.destroy()
+
 
 # Widget class for question cards, inherits from tk.Frame
 class Card(tk.Frame):
@@ -132,7 +133,7 @@ class Card(tk.Frame):
 
     # Adds a frame for holding the content / question of a card
     def add_content(self):
-        self.content = tk.Frame(self, width=320, bg=style.bg_2)
+        self.content = tk.Frame(self, width=320, bg=style.bg_2, pady=8)
         self.content.grid(column=0, sticky='NSEW', pady=2)
         self.content.columnconfigure(0, weight=1)
 
@@ -243,7 +244,7 @@ class Card(tk.Frame):
                 self.add_math("%s = %s" % self.symbols[symbol])
 
         # If the card has three possible answers
-        if type(data["Answer"]) == list and len(data["Answer"]) == 3:
+        if "Answer" in data and type(data["Answer"]) == list and len(data["Answer"]) == 3:
             # Pick a location for the correct answer and load the equations for the possible answers
             correct = random.randint(0, 2)
 
@@ -256,7 +257,7 @@ class Card(tk.Frame):
 
             # Add a tri button response type, give it the equation to generate answers and the correct button
             self.add_tri_button(ans, correct)
-        else:
+        elif "Answer" in data:
             self.add_single_button()
 
     # Method to be run if the correct button is clicked
@@ -310,51 +311,74 @@ class Card(tk.Frame):
         return -k / (2 * x) + k, x >= 0.5
 
 
-class NavBar(tk.Frame):
+class NavButtons:
     def __init__(self, screen):
-        self.screen=screen
-        super().__init__(screen.window.root, width=320, height=40, bg=style.bg_3)
-        self.grid_propagate(False)
-        self.columnconfigure(0, weight=1)
-        self.columnconfigure(1, weight=1)
-        self.rowconfigure(0,weight=1)
+        self.screen = screen
 
-        self.menu_frame  =tk.Frame(self, bg=style.bg_2)
-        self.menu_frame.grid(row=0, column=0, sticky="NSEW", padx=(0,2))
+        self.menu_frame = tk.Frame(screen.window.root, bg=style.bg_2, width=40, height=40)
         self.menu_frame.columnconfigure(0, weight=1)
-        self.menu_frame.rowconfigure(0,weight=1)
+        self.menu_frame.rowconfigure(0, weight=1)
+        self.menu_frame.grid_propagate(False)
 
-        self.menu_button = tk.Button(self.menu_frame, text="Menu", bg=style.bg_2, fg=style.fg_1, bd=0, font=style.font_button, command=self.return_menu)
+        self.menu_button = tk.Button(self.menu_frame, text="☰", bg=style.bg_2, fg=style.fg_1, bd=0,
+                                     font=style.font_button, command=self.return_menu)
         self.menu_button.grid(sticky="NSEW")
 
-        self.help_frame  = tk.Frame(self, bg=style.bg_2)
-        self.help_frame.grid(row=0, column=1, sticky="NSEW", padx=(2,0))
+        self.help_frame = tk.Frame(screen.window.root, bg=style.bg_2, width=40, height=40)
         self.help_frame.columnconfigure(0, weight=1)
-        self.help_frame.rowconfigure(0,weight=1)
+        self.help_frame.rowconfigure(0, weight=1)
+        self.help_frame.grid_propagate(False)
 
-        self.help_button = tk.Button(self.help_frame, text="Help", bg=style.bg_2, fg=style.fg_1, bd=0, font=style.font_button)
+        self.help_button = tk.Button(self.help_frame, text="？", bg=style.bg_2, fg=style.fg_1, bd=0,
+                                     font=style.font_button, command=self.switch_queue)
         self.help_button.grid(sticky="NSEW")
 
+
     @staticmethod
-    def smoothmax(alpha, v1, v2):
-        return math.log( pow(alpha,v1) + pow(alpha,v2),alpha )
+    def smooth_max(alpha, a, b):
+        # return math.log(pow(alpha, v1) + pow(alpha, v2), alpha)
+        h = min(max(0.5 + 0.5 * (b - a) / alpha, 0), 1)
+        return a * h + (1 - h) * b - alpha * h * (1 - h)
 
     def switch_queue(self):
-        self.screen.active_queue.place_forget()
-        self.screen.active_queue = {self.screen.main_queue : self.screen.help_queue,
-                                    self.screen.help_queue : self.screen.main_queue}[self.screen.active_screen]
+        self.screen.active_queue.root.place_forget()
 
-    def update(self,delta_t):
-        if self.screen.main_queue.root.winfo_exists():
-            y=self.screen.main_queue.position
+        if self.screen.active_queue is self.screen.main_queue:
+            self.screen.active_queue = self.screen.help_queue
+            self.screen.active_queue.bind_handlers()
+            self.screen.active_queue.regrid()
+
+            for question in self.screen.json_section["Queue"]:
+                data = self.screen.json_section["Questions"][question]
+                data.pop("Answer", None)
+                if data["Permanent"]:
+                    new_card = Card(self.screen.help_queue.root)
+                    new_card.load({question: data})
+                    self.screen.help_queue.append_card(new_card)
+            self.help_button.config(text="⤶")
         else:
-            y=self.screen.help_queue.position
+            self.screen.active_queue = self.screen.main_queue
+            self.screen.active_queue.bind_handlers()
+            self.screen.active_queue.regrid()
+            self.help_button.config(text="？")
 
-        y=self.smoothmax(0.9,20+y,20)
-        self.place(y=y, x=80)
+    def update(self, delta_t):
+
+        y = self.screen.active_queue.position
+
+        y = self.smooth_max(-10, 1 + math.copysign(1, y) * pow(abs(y)*10, 0.5), 0)+12
+        self.menu_frame.place(y=y, x=20)
+        self.help_frame.place(y=y, x=460-40)
+        self.help_frame.lift()
+        self.menu_frame.lift()
+
+    def destroy(self):
+        self.help_frame.destroy()
+        self.menu_frame.destroy()
 
     def return_menu(self):
-        self.screen.running=False
+        self.screen.running = False
+
 
 # Extension of the base queue class
 class Queue(BaseQueue):
@@ -393,7 +417,7 @@ class Queue(BaseQueue):
         self.position = 0  # Actual position of the queue ( Used for smooth scrolling )
         self.length = 0  # Length of the queue in pixels ( Limit scrolling past ends of the queue )
         self.padx = 80  # Amount of padding on the sides of the queue
-        self.offset = 75
+        self.offset = 0
 
         # Holds old tutorials above the screen so that the user can still access them
         self.top_buffer = self.Buffer(self.root, height=200)
@@ -407,14 +431,11 @@ class Queue(BaseQueue):
         self.bottom_buffer = self.Buffer(self.root, height=1000)
         self.bottom_buffer.grid(row=1000, column=0)
 
+    def bind_handlers(self):
         # Bind the scroll handler to mouse events for windows and linux
         self.root.bind_all('<MouseWheel>', self.scroll_handler)
         self.root.bind_all('<Button-5>', self.scroll_handler)
         self.root.bind_all('<Button-4>', self.scroll_handler)
-
-        # Ensure everything is drawn in the correct order
-        self.root.lower()
-        root.lower()
 
     # Removes cards from the queue
     def pop_card(self, i, correct=1):
@@ -459,7 +480,7 @@ class Queue(BaseQueue):
         self.animate(delta_t)
 
         # If nothing is left on the screen return False so that we can exit the loop
-        return len(self.cards) or len(self.animated) or len(self.animate_in)
+        return True  # len(self.cards) or len(self.animated) or len(self.animate_in)
 
     # Apply animations
     def animate(self, delta_t):

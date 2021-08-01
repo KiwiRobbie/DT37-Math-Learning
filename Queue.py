@@ -72,9 +72,14 @@ class Queue:
         # Append the card to the list of cards in the queue
         self.cards.append(card)
 
-        # Place the card in the queue root and update the root
+        # Place the card in the queue root
         self.cards[-1].grid(row=len(self.cards), column=0, pady=15, padx=self.padx)
-        self.root.update()
+
+    def regrid(self):
+        self.top_buffer.grid(row=0,column=0)
+        self.bottom_buffer.grid(row=1000, column=0)
+        for i, card in enumerate(self.cards):
+            card.grid(row=i+1, column=0, pady=15, padx=self.padx)
 
     # Update the queue, all animations are scaled by the amount of time frames are taking
     def update(self, delta_t):
