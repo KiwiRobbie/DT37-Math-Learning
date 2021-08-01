@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c977823b-6667-4dc1-9db8-bb641cc48eb5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/modules/Basic-Facts/Addition.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/Basic-Facts/Division.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/Basic-Facts/Multiplication.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/Basic-Facts/Subtraction.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/Basic-Facts/index.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameScreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameScreen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Queue.py" beforeDir="false" afterPath="$PROJECT_DIR$/Queue.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ModuleScreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModuleScreen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/save.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/save.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +37,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/main.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/modules/Basic-Facts" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Windows\Documents\GitHub\DT37-Math-Learning\modules\Basic-Facts" />
+      <recent name="E:\Windows\Documents\GitHub\DT37-Math-Learning\modules" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python">
@@ -69,6 +80,15 @@
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

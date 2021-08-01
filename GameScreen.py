@@ -4,6 +4,8 @@ import time
 import tkinter as tk
 import sys
 import copy
+from typing import Dict, Any
+
 from EquationTree import EquationTree
 from Queue import Queue as BaseQueue
 from UI_Styles import DarkTheme
@@ -33,7 +35,6 @@ class Screen:
         self.window = root
         self.module_title = self.json_index["Module"]
         self.window.set_title("MLG - %s (%s)" % (self.module_title, self.section))
-        self.nav_buttons = NavButtons(self)
 
         # Create new Queue object for the screen
         self.main_queue = Queue(root.root)
@@ -62,12 +63,23 @@ class Screen:
                 new_card.load({question: self.json_section["Questions"][question]})
                 self.main_queue.append_card(new_card)
 
+        # Add tutorial cards to help section
+        for question in self.json_section["Queue"]:
+            data = self.json_section["Questions"][question]
+            data.pop("Answer", None)
+            if data["Permanent"]:
+                new_card = Card(self.help_queue.root)
+                new_card.load({question: data})
+                self.help_queue.append_card(new_card)
+
         # Create a SaveManager object to handle saving json data and use it to update the save file
         self.save_manager = SaveManager(self.json_save, self.json_section, self.module_title, self.section)
         self.save_manager.update_save()
 
         # Attach the save manager object to the main queue so it can access it too
         self.main_queue.save_manager = self.save_manager
+        self.nav_buttons = NavButtons(self)
+
 
         # Used to exit the main loop of the screen
         self.running = True
@@ -218,10 +230,12 @@ class Card(tk.Frame):
 
             # If it is math add math to the cards body
             elif "<math>" in txt[0]:
+                print("Math")
                 # Extract the math section and replace the symbols with their corresponding letters
                 math = txt[1]
                 for key, value in self.symbols.items():
                     math = math.replace("[%s]" % key, value[0])
+                    math = math.replace("{%s}" % key, str(value[1]))
 
                 # Insert the center dot character
                 math = math.replace("cdot", "·")
@@ -242,6 +256,17 @@ class Card(tk.Frame):
 
                 # Add the letter and value as math to the cards body
                 self.add_math("%s = %s" % self.symbols[symbol])
+
+            # Silent definition, stores the value but won't add math to the card
+            elif "<sdef>":
+                # Extract the symbol that is been defined and the equation defining it
+                symbol = txt[1][0].split('[')[1].split(']')[0]
+                eq_tree = EquationTree()
+                eq_tree.build(txt[1][1])
+                eq_tree.insert_symbols(self.symbols)
+
+                # Update the symbol dict the letter and value of the current symbol
+                self.symbols[symbol] = (letters.pop(random.randrange(0, len(letters))), eq_tree.evaluate())
 
         # If the card has three possible answers
         if "Answer" in data and type(data["Answer"]) == list and len(data["Answer"]) == 3:
@@ -324,15 +349,17 @@ class NavButtons:
                                      font=style.font_button, command=self.return_menu)
         self.menu_button.grid(sticky="NSEW")
 
-        self.help_frame = tk.Frame(screen.window.root, bg=style.bg_2, width=40, height=40)
-        self.help_frame.columnconfigure(0, weight=1)
-        self.help_frame.rowconfigure(0, weight=1)
-        self.help_frame.grid_propagate(False)
+        if len(self.screen.help_queue.cards):
+            self.help_frame = tk.Frame(screen.window.root, bg=style.bg_2, width=40, height=40)
+            self.help_frame.columnconfigure(0, weight=1)
+            self.help_frame.rowconfigure(0, weight=1)
+            self.help_frame.grid_propagate(False)
 
-        self.help_button = tk.Button(self.help_frame, text="？", bg=style.bg_2, fg=style.fg_1, bd=0,
-                                     font=style.font_button, command=self.switch_queue)
-        self.help_button.grid(sticky="NSEW")
-
+            self.help_button = tk.Button(self.help_frame, text="？", bg=style.bg_2, fg=style.fg_1, bd=0,
+                                         font=style.font_button, command=self.switch_queue)
+            self.help_button.grid(sticky="NSEW")
+        else:
+            self.help_frame=None
 
     @staticmethod
     def smooth_max(alpha, a, b):
@@ -347,14 +374,6 @@ class NavButtons:
             self.screen.active_queue = self.screen.help_queue
             self.screen.active_queue.bind_handlers()
             self.screen.active_queue.regrid()
-
-            for question in self.screen.json_section["Queue"]:
-                data = self.screen.json_section["Questions"][question]
-                data.pop("Answer", None)
-                if data["Permanent"]:
-                    new_card = Card(self.screen.help_queue.root)
-                    new_card.load({question: data})
-                    self.screen.help_queue.append_card(new_card)
             self.help_button.config(text="⤶")
         else:
             self.screen.active_queue = self.screen.main_queue
@@ -368,13 +387,16 @@ class NavButtons:
 
         y = self.smooth_max(-10, 1 + math.copysign(1, y) * pow(abs(y)*10, 0.5), 0)+12
         self.menu_frame.place(y=y, x=20)
-        self.help_frame.place(y=y, x=460-40)
-        self.help_frame.lift()
         self.menu_frame.lift()
 
+        if self.help_frame:
+            self.help_frame.place(y=y, x=460-40)
+            self.help_frame.lift()
+
     def destroy(self):
-        self.help_frame.destroy()
         self.menu_frame.destroy()
+        if self.help_frame:
+            self.help_frame.destroy()
 
     def return_menu(self):
         self.screen.running = False
@@ -480,7 +502,7 @@ class Queue(BaseQueue):
         self.animate(delta_t)
 
         # If nothing is left on the screen return False so that we can exit the loop
-        return True  # len(self.cards) or len(self.animated) or len(self.animate_in)
+        return len(self.cards) or len(self.animated) or len(self.animate_in)
 
     # Apply animations
     def animate(self, delta_t):

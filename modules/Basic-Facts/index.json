@@ -1,0 +1,21 @@
+{
+  "Module" : "Basic Facts",
+  "Sections" : {
+    "Addition":{
+      "File" : "Addition.json",
+      "Description" : "Practice your basic facts by adding numbers"
+    },
+    "Subtraction" : {
+      "File" : "Subtraction.json",
+      "Description" : "Practice your basic facts by subtracting numbers"
+    },
+    "Multiplication" : {
+      "File" : "Multiplication.json",
+      "Description" : "Practice your basic facts by multiplying numbers"
+    },
+    "Division" : {
+      "File" : "Division.json",
+      "Description" : "Practice your basic facts by dividing numbers"
+    }
+ }
+}

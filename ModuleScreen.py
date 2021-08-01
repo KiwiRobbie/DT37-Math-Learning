@@ -244,22 +244,41 @@ class ModuleWidget(tk.Frame):
             self.button.grid(row=0, column=0, sticky="NSEW")
 
         else:
+            # Create a frame for holding the reset button
+            self.reset_frame = tk.Frame(self, bg=style.bg_2, height=30)
+            self.reset_frame.columnconfigure(0, weight=1)
+            self.reset_frame.rowconfigure(0, weight=1)
+            self.reset_frame.grid_propagate(False)
+            self.reset_frame.grid(column=0, row=self.grid_size()[1] - 1, sticky="NSEW", columnspan=2, pady=2)
+            self.button_frame.lift()
+
+            self.reset_button = tk.Button(self.reset_frame, text="Reset?",
+                                          bg=style.bg_err, fg=style.txt_1,
+                                          font=style.font_button, bd=0,
+                                          command=lambda: self.reset(self.title, return_module))
+
+            self.cancel_reset = tk.Button(self.reset_frame, text="×",
+                                          bg=style.bg_err, fg=style.txt_1,
+                                          font=style.font_button, bd=0,
+                                          command=self.button_frame.lift)
+
+            self.reset_button.grid(row=0, column=0, sticky="NSEW")
+            self.cancel_reset.grid(row=0, column=1)
+
             # Button holding the completed module text
             self.button = tk.Button(self.button_frame, text="Completed",
                                     bg=style.bg_cor, fg=style.txt_1,
                                     font=style.font_button, bd=0)
 
-            # Button to reset the save for this module
-            reset_cmd = lambda: self.button.config(text="Reset?", bg=style.bg_err,
-                                                   command=lambda: self.reset(self.title, return_module))
-            self.reset_button = tk.Button(self.button_frame, text="↺",
-                                          bg=style.bg_cor, fg=style.txt_1,
-                                          font=style.font_button, bd=0,
-                                          command=reset_cmd)
+
+            self.arm_reset = tk.Button(self.button_frame, text="↺",
+                                       bg=style.bg_cor, fg=style.txt_1,
+                                       font=style.font_button, bd=0,
+                                       command=self.button_frame.lower)
 
             # Place buttons
             self.button.grid(row=0, column=0, sticky="NSEW")
-            self.reset_button.grid(row=0, column=1, sticky="NSEW")
+            self.arm_reset.grid(row=0, column=1, sticky="NSEW")
 
         # Update the save_json for the module
         self.save_json[self.title] = module_save_json
