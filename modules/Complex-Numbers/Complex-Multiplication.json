@@ -11,57 +11,70 @@
   "Questions" : {
     "How To Multiply Real And Complex Numbers": {
       "Question": [
-        ["<txt>","When multiplying a real and complex number we can simply multiply both components of the complex number by the real number"],
+        ["<txt>","When multiplying a real (normal) and complex number we multiply both components of the complex number by the real number"],
         ["<math>","p = 2+1i"],
         ["<math>","n = 2"],
-        ["<math>","z = p cdot q"],
+        ["<math>","z = p cdot n"],
         ["<math>","z = 2cdot(2 cdot 2)+(1 cdot 2)cdoti"]
       ],
-      "Answer" : [["Ok"]]
+      "Answer" : [["Ok"]],
+      "Permanent": true
     },
     "How To Multiply A Complex And Exclusively Complex Numbers": {
-      "Question": [["<txt>","With the same logic we can multiply a complex number with another complex number with no real component"],
+      "Question": [["<txt>","To multiply an imaginary and complex number we can do the same, multiplying both components of the complex number by the imaginary number"],
         ["<math>","p = -2+2i"],
         ["<math>","q = 4i"],
         ["<math>","z = pcdotq"],
-        ["<math>","z = (-2cdot4i) + (2cdot4i)i"],
-        ["<txt>","Because i is the square root of -1:"],
+        ["<math>","z = (-2cdot4i) + (2icdot4i)"],
+        ["<txt>","Because i is the square root of negative 1, i squared or i times i is -1."],
         ["<math>","icdoti = -1"],
-        ["<math>","z = -8i - 8"]
+        ["<math>","z = -8i - 8"],
+        ["<txt>","The order of the components doesn't change the value of a complex number, this means we can move the components to make the way we write numbers consistent"],
+        ["<math>","z = -8 - 8i"]
       ],
-      "Answer" : [["Ok"]]
+      "Answer" : [["Ok"]],
+      "Permanent": true
     },
 
       "How To Multiply Complex Numbers": {
-      "Question": [["<txt>","To multiply two complex numbers we can multiply the first number by the real component of the second, then multiply the first number by the complex component of the second and add the two results"],
+      "Question": [
+        ["<txt>","To multiply two complex numbers:"],
         ["<math>","p = 3+5i"],
         ["<math>","q = 2+3i"],
         ["<math>","z = pcdotq"],
+        ["<txt>","We multiply the p by the real part of q"],
 
-        ["<math>","(3cdot2) + (5cdot2)i = "],
-        ["<math>","6 + 10i"],
+        ["<math>","(3cdot2) + (5cdot2)i"],
+        ["<math>","= 6 + 10i"],
 
-        ["<math>","(3cdot3i) + (5cdot3i)i ="],
-        ["<math>","9i - 15"],
+        ["<txt>","Then we multiply p by the imaginary part of q"],
+        ["<math>","(3cdot3i) + (5cdot3i)i"],
+        ["<math>","=  9i - 15"],
+        ["<math>","= -15 + 9i"],
 
+        ["<txt>","Finally we add the result of these two calculations"],
         ["<math>","z = 6-15 + (10+9)i "],
 
         ["<math>","z = -9+19i"]
       ],
-      "Answer" : [["Ok"]]
+      "Answer" : [["Ok"]],
+      "Permanent": true
     },
 
     "Multiply Real And Complex Numbers": {
       "Question": [["<def>" , ["[a]", ["$randc{-5,5,-5,5}$"]]],["<def>" , ["[b]", ["$randc{-5,5,0,0}$"]]],["<txt>" , "What is the value of: "],["<math>" , "[a]cdot[b]"]],
-      "Answer": [["[a]","*","[b]"],["$randc{-5,5,-5,5}","*","$randc{-5,5,0,0}$"],["$randc{-5,5,-5,5}","*","$randc{-5,5,0,0}$"]]
+      "Answer": [["[a]","*","[b]"],["$randc{-5,5,-5,5}","*","$randc{-5,5,0,0}$"],["$randc{-5,5,-5,5}","*","$randc{-5,5,0,0}$"]],
+       "Permanent": false
     },
     "Multiply A Complex And Exclusively Complex Number": {
       "Question": [["<def>" , ["[a]", ["$randc{-5,5,-5,5}$"]]],["<def>" , ["[b]", ["$randc{0,0,-5,5}$"]]],["<txt>" , "What is the value of: "],["<math>" , "[a]cdot[b]"]],
-      "Answer": [["[a]","*","[b]"],["$randc{-5,5,-5,5}","*","$randc{0,0,-5,5}$"],["$randc{-5,5,-5,5}","*","$randc{0,0,-5,5}$"]]
+      "Answer": [["[a]","*","[b]"],["$randc{-5,5,-5,5}","*","$randc{0,0,-5,5}$"],["$randc{-5,5,-5,5}","*","$randc{0,0,-5,5}$"]],
+      "Permanent": false
     },
     "Multiply Complex Numbers": {
       "Question": [["<def>" , ["[a]", ["$randc{-5,5,-5,5}$"]]],["<def>" , ["[b]", ["$randc{-5,5,-5,5}$"]]],["<txt>" , "What is the value of: "],["<math>" , "[a]cdot[b]"]],
-      "Answer": [["[a]","*","[b]"],["$randc{-5,5,-5,5}","*","$randc{-5,5,-5,5}$"],["$randc{-5,5,-5,5}","*","$randc{-5,5,-5,5}$"]]
+      "Answer": [["[a]","*","[b]"],["$randc{-5,5,-5,5}","*","$randc{-5,5,-5,5}$"],["$randc{-5,5,-5,5}","*","$randc{-5,5,-5,5}$"]],
+      "Permanent": false
     }
   }
 }

@@ -12,10 +12,10 @@
       "Question": [
         ["<txt>","This is an example of a complex number:"],
         ["<math>","z = 3+2i"],
-        ["<txt>","Complex numbers are written in two parts, first a familiar regular number and secondly an imaginary number."],
-        ["<txt>","So what is an imaginary number? Well it is defined as i times another number. i was created by mathematicians to represent the square root of -1, this is a value that can't be shown with normal numbers."],
-        ["<txt>","When we think about the number line, 1 represents a single step in the positive direction ( This can be thought of a moving to the right ). Multiplying 1 by another number represents that many steps to the right. On the regular number line we also have -1, multiplying a number by -1 represents that many steps in the negative direction, typically to the left."],
-        ["<txt>","Imaginary numbers exist on their own number line, this is commonly shown as a vertical number line, combining the normal number line with our new imaginary number line we have two positions, one horizontal and one vertical. This makes complex numbers like coordinates on a map where the real part is the horizontal position and the imaginary number is the vertical position."]
+        ["<txt>","Complex numbers are written in two parts, first a familiar regular number called a real number and secondly an imaginary number."],
+        ["<txt>","So what is an imaginary number? Well it is defined as i times another number. i was created by mathematicians to represent the square root of -1, this is a value that can't be shown with normal real numbers."],
+        ["<txt>","When we think about the number line, 1 represents a single step in the positive direction ( This can be thought of a moving to the right ). Multiplying 1 by another number represents that many steps to the right. On the regular number/real line we also have -1, multiplying a number by -1 represents that many steps in the negative direction, typically to the left."],
+        ["<txt>","Imaginary numbers exist on their own number line, this is commonly shown as a vertical number line, combining the normal/real number line with our new imaginary number line we have two positions, one horizontal and one vertical. This makes complex numbers like coordinates on a map where the real part is the horizontal position and the imaginary number is the vertical position."]
 
       ],
       "Answer" : [["Ok"]],
@@ -37,7 +37,7 @@
       "Permanent": true
     },
     "Subtraction Tutorial": {
-      "Question": [["<txt>","Subtracting complex numbers is very similar to adding them, the only difference is that the components are subtracted separately instead of added."],
+      "Question": [["<txt>","Subtracting complex numbers is very similar to adding them, the only difference is that the two components are subtracted instead of added."],
         ["<math>","p = 2+4i"],
         ["<math>","q = 3-1i"],
         ["<math>","z = p-q"],

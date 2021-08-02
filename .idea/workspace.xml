@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c977823b-6667-4dc1-9db8-bb641cc48eb5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/SaveManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameScreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameScreen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/save.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/save.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/Basic-Facts/Multiplication.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Basic-Facts/Multiplication.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/Basic-Facts/Subtraction.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Basic-Facts/Subtraction.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholders/Introduction-To-Proofs/Basic-Arithmetic.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholders/Introduction-To-Proofs/index.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholders/Set-Theory-Basics/Basic-Arithmetic.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholders/Set-Theory-Basics/index.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholders/Using-Maths-For-Physics/Basic-Arithmetic.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholders/Using-Maths-For-Physics/index.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/Complex-Numbers/Complex-Arithmetic.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Complex-Numbers/Complex-Arithmetic.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/Complex-Numbers/Complex-Multiplication.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Complex-Numbers/Complex-Multiplication.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
