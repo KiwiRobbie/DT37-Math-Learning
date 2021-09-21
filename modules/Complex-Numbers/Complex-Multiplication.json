@@ -2,8 +2,8 @@
   "Queue": {
     "How To Multiply Real And Complex Numbers": 1,
     "Multiply Real And Complex Numbers": 3,
-    "How To Multiply A Complex And Exclusively Complex Numbers": 1,
-    "Multiply A Complex And Exclusively Complex Number": 3,
+    "How To Multiply Complex And Imaginary": 1,
+    "Multiply Complex And Imaginary": 3,
     "How To Multiply Complex Numbers": 1,
     "Multiply Complex Numbers": 3
   },
@@ -20,7 +20,7 @@
       "Answer" : [["Ok"]],
       "Permanent": true
     },
-    "How To Multiply A Complex And Exclusively Complex Numbers": {
+    "How To Multiply Complex And Imaginary": {
       "Question": [["<txt>","To multiply an imaginary and complex number we can do the same, multiplying both components of the complex number by the imaginary number"],
         ["<math>","p = -2+2i"],
         ["<math>","q = 4i"],
@@ -66,7 +66,7 @@
       "Answer": [["[a]","*","[b]"],["$randc{-5,5,-5,5}","*","$randc{-5,5,0,0}$"],["$randc{-5,5,-5,5}","*","$randc{-5,5,0,0}$"]],
        "Permanent": false
     },
-    "Multiply A Complex And Exclusively Complex Number": {
+    "Multiply Complex And Imaginary": {
       "Question": [["<def>" , ["[a]", ["$randc{-5,5,-5,5}$"]]],["<def>" , ["[b]", ["$randc{0,0,-5,5}$"]]],["<txt>" , "What is the value of: "],["<math>" , "[a]cdot[b]"]],
       "Answer": [["[a]","*","[b]"],["$randc{-5,5,-5,5}","*","$randc{0,0,-5,5}$"],["$randc{-5,5,-5,5}","*","$randc{0,0,-5,5}$"]],
       "Permanent": false
