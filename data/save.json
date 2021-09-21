@@ -1,35 +1,25 @@
 {
     "Basic Facts": {
         "Addition": {
-            "Progress": 1
+            "Progress": 0.0,
+            "Addition": 6
         },
         "Subtraction": {
-            "Progress": 1
+            "Progress": 0
         },
         "Multiplication": {
-            "Progress": 1
+            "Progress": 0
         },
         "Division": {
-            "Progress": 1
+            "Progress": 0
         }
     },
     "Complex Numbers": {
         "Basic Complex Arithmetic": {
-            "Progress": 1.0,
-            "What are complex numbers?": 0,
-            "Addition Tutorial": 0,
-            "Addition": 0,
-            "Subtraction Tutorial": 0,
-            "Subtraction": 0
+            "Progress": 0
         },
         "Complex Multiplication": {
-            "Progress": 0.08333333333333333,
-            "How To Multiply Real And Complex Numbers": 0,
-            "Multiply Real And Complex Numbers": 3,
-            "How To Multiply A Complex And Exclusively Complex Numbers": 1,
-            "Multiply A Complex And Exclusively Complex Number": 3,
-            "How To Multiply Complex Numbers": 1,
-            "Multiply Complex Numbers": 3
+            "Progress": 0
         }
     }
 }
